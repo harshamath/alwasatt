@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  *
@@ -61,25 +62,43 @@
  */
 class DATABASE_CONFIG {
 
-	public $default = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'alwassat',
-		'password' => 'pr0jP@ssc0de',
-		'database' => 'alwassat',
-		'prefix' => '',
-		//'encoding' => 'utf8',
-	);
+    public $demo = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'alwassat',
+        'password' => 'pr0jP@ssc0de',
+        'database' => 'alwassat',
+        'prefix' => '',
+            //'encoding' => 'utf8',
+    );
+    public $default = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'root',
+        'password' => 'welcome',
+        'database' => 'alwasatt',
+        'prefix' => '',
+            //'encoding' => 'utf8',
+    );
+    public $test = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'user',
+        'password' => 'password',
+        'database' => 'test_database_name',
+        'prefix' => '',
+            //'encoding' => 'utf8',
+    );
 
-	public $test = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'user',
-		'password' => 'password',
-		'database' => 'test_database_name',
-		'prefix' => '',
-		//'encoding' => 'utf8',
-	);
+    public function __construct() {
+        if (isset($_SERVER) && isset($_SERVER['SERVER_NAME'])) {
+            if (strpos($_SERVER['SERVER_NAME'], 'localhost') === false) {
+                $this->default = $this->demo;
+            }
+        }
+    }
+
 }
