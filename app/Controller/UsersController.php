@@ -9,15 +9,26 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
+//    var $components = array('Session', 'Auth' => array(
+//            'loginRedirect' => array('controller' => 'users', 'action' => 'complete_profile'),
+//            'logoutRedirect' => array('controller' => 'users', 'action' => 'logout', 'home')
+//    ));
     var $components = array('Session');
-    var $layout = 'alwasatt_admin';
+    
+    var $layout = 'alwasatt';
 
+//    public function beforeFilter() {
+//        parent::beforeFilter();
+//        $this->Auth->allow('*');
+//    }
+    
     /**
      * admin_index method
      *
      * @return void
      */
     public function admin_index() {
+        $this->layout = 'admin';
         $this->User->recursive = 0;
         $this->set('users', $this->paginate());
     }
@@ -30,6 +41,7 @@ class UsersController extends AppController {
      * @return void
      */
     public function admin_view($id = null) {
+        $this->layout = 'admin';
         if (!$this->User->exists($id)) {
             throw new NotFoundException(__('Invalid user'));
         }
@@ -43,6 +55,7 @@ class UsersController extends AppController {
      * @return void
      */
     public function admin_add() {
+        $this->layout = 'admin';
         if ($this->request->is('post')) {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
@@ -63,6 +76,7 @@ class UsersController extends AppController {
      * @return void
      */
     public function admin_edit($id = null) {
+        $this->layout = 'admin';
         if (!$this->User->exists($id)) {
             throw new NotFoundException(__('Invalid user'));
         }
@@ -87,6 +101,7 @@ class UsersController extends AppController {
      * @return void
      */
     public function admin_delete($id = null) {
+        $this->layout = 'admin';
         $this->User->id = $id;
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));
@@ -106,14 +121,12 @@ class UsersController extends AppController {
      */
 
     public function login() {
-        $this->layout = 'alwasatt';
         if ($this->request->is('post')) {
             $conditions = array(
                 'User.email_address' => $this->request->data['username'],
                 'User.password' => $this->request->data['password']
             );
             if ($this->User->hasAny($conditions)) {
-                $this->Session->setFlash(__('Logged in...'));
                 return $this->redirect(array('controller' => 'users', 'action' => 'complete_profile'));
             } else {
                 $this->Session->setFlash(__('Invalid Username/Password'));
@@ -122,7 +135,25 @@ class UsersController extends AppController {
     }
     
     public function complete_profile() {
-        $this->layout = 'alwasatt';
+        
+    }
+    
+    public function signup() {
+        if ($this->request->is('post')) {
+            if($this->request->data['password'] != $this->request->data['confirm_password']) {
+                $this->Session->setFlash(__('Password mismatched. Please, try again.'));
+            } else {
+                
+                unset($this->request->data['confirm_password']);
+//                print_r($this->request->data);exit;
+                $this->User->create();
+                if ($this->User->save($this->request->data)) {
+                    $this->Session->setFlash(__('The user has been saved'));
+                    return $this->redirect(array('action' => 'complete_profile'));
+                }
+            }                        
+            $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+        }
     }
 
 }

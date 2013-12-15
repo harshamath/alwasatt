@@ -6,6 +6,7 @@
 	margin: 0;
 	padding: 0;
 }
+a { color: #898989;}
 div.header {
 	background: url("../images/header.jpg") repeat scroll 0 0;
 	padding: 15px;
@@ -13,12 +14,10 @@ div.header {
 div.header .logo {
 	background: url("../images/logo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 	display:table;
-	margin:0 auto;
 	height:31px;
-	width:100px;
 	color: #FFFFFF;
 	display: block;
-	text-decoration: none;
+	width:100px;
 }
 div.header .logo:hover {
 	opacity:0.5;
@@ -45,24 +44,23 @@ div#login_page {
 	border-radius: 4px;
 	padding: 50px 0 25px;
 }
-div#login_page .col-lg-12 .col-lg-6 {
+div#login_page .col-lg-12 .col-lg-6, div#login_page .col-lg-12 .col-lg-7 {
 	margin:0 auto;
 	float:none;
 }
-div#login_page .col-lg-12 .col-lg-6 h1 {
+div#login_page .col-lg-12 .col-lg-6 h1, div#login_page .col-lg-12 .col-lg-7 h1 {
 	border-bottom: 1px solid #F0F0F0;
 	color:#339E03;
 	padding-bottom: 15px;
 	font-size:30px;
 	font-weight:bold;
 }
-div#login_page .col-lg-12 .col-lg-6 .form-horizontal .form-group label {
+div#login_page .col-lg-12 .col-lg-6 .form-horizontal .form-group label , div#login_page .col-lg-12 .col-lg-7 .form-horizontal .form-group label {
 	color: #333333;
 	margin-right:5px;
 	font-size:16px;
 	font-weight:normal;
 	vertical-align:middle;
-	width:26%;
 }
 div#login_page .col-lg-12 .col-lg-6 .form-horizontal .form-group label.remember {
 	width:35%;
@@ -100,17 +98,18 @@ div#login_page .col-lg-12 .col-lg-6 .form-horizontal .form-group button:hover {
 div#login_page .col-lg-12 .col-lg-6 .mnhight {
 	min-height:220px;
 }
-div#login_page .col-lg-12 .col-lg-6 .bottom {
+div#login_page .col-lg-12 .col-lg-6 .bottom, div#login_page .col-lg-12 .col-lg-7 .bottom {
 	border-top: 1px solid #CACACA;
 	padding-top: 5px;
 }
-div#login_page .col-lg-12 .col-lg-6 .bottom p {
+div#login_page .col-lg-12 .col-lg-6 .bottom p, div#login_page .col-lg-12 .col-lg-7 .bottom p {
 	margin:0;
 }
-div#login_page .col-lg-12 .col-lg-6 .bottom p span {
+div#login_page .col-lg-12 .col-lg-6 .bottom p span, div#login_page .col-lg-12 .col-lg-7 .bottom p span {
 	font-size:16px;
 	color: #FF0000;
 }
+.form-group{ padding-bottom:5px; padding-top:5px;}
 /*footer css*/
 .footer {
 	margin-top:30px;
@@ -208,9 +207,9 @@ i.red_dot {
 	margin:5px 10px;
 }
 .btn-lg {
-	font-size: 18px;
+/*	font-size: 18px;
 	padding: 5px 30px 7px;
-	height: 40px;
+	height: 40px;*/
 /*	box-shadow: 0 0 5px hsl(129, 75%, 52%) inset;*/
 }
 .mrg_auto {
@@ -258,6 +257,7 @@ textarea {
 	padding-left:0px;
 	padding-right:0px;
 }
+div#login_page .col-lg-12 .col-lg-7 .form-horizontal .form-group label.dot_adjust{ line-height:15px;}
 .social {
 	float:right;
 	margin-top:35px;
@@ -385,3 +385,7 @@ p.error em {
 	color: #fff;
 }
 /* messages end */
+
+.col-sm-2 {
+    width: 26.667%;
+}
