@@ -72,6 +72,16 @@ class DATABASE_CONFIG {
         'prefix' => '',
             //'encoding' => 'utf8',
     );
+    public $t3 = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'thetecht_wasatt',
+        'password' => 'pwd4alwasatt',
+        'database' => 'thetecht_alwassat',
+        'prefix' => '',
+            //'encoding' => 'utf8',
+    );
     public $default = array(
         'datasource' => 'Database/Mysql',
         'persistent' => false,
@@ -96,7 +106,7 @@ class DATABASE_CONFIG {
     public function __construct() {
         if (isset($_SERVER) && isset($_SERVER['SERVER_NAME'])) {
             if (strpos($_SERVER['SERVER_NAME'], 'localhost') === false) {
-                $this->default = $this->demo;
+                $this->default = $this->t3;
             }
         }
     }
