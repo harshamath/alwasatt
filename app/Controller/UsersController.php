@@ -9,19 +9,19 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
-//    var $components = array('Session', 'Auth' => array(
-//            'loginRedirect' => array('controller' => 'users', 'action' => 'complete_profile'),
-//            'logoutRedirect' => array('controller' => 'users', 'action' => 'logout', 'home')
-//    ));
-    var $components = array('Session');
-    
+    public $components = array('Session', 
+        'Auth' => array(
+            'loginRedirect' => array('controller' => 'users', 'action' => 'complete_profile'),
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'login')
+        )
+    );
     var $layout = 'alwasatt';
 
 //    public function beforeFilter() {
 //        parent::beforeFilter();
 //        $this->Auth->allow('*');
 //    }
-    
+
     /**
      * admin_index method
      *
@@ -60,8 +60,7 @@ class UsersController extends AppController {
             $this->User->create();
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(__('The user has been saved'));
-//                $this->redirect(array('action' => 'index'));
-                return $this->redirect(array('controller' => 'users', 'action' => 'index'));
+                return $this->redirect(array('controller' => 'users', 'action' => 'admin_index'));
             } else {
                 $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
             }
@@ -83,7 +82,7 @@ class UsersController extends AppController {
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(__('The user has been saved'));
-                $this->redirect(array('action' => 'index'));
+                return $this->redirect(array('controller' => 'users', 'action' => 'admin_index'));
             } else {
                 $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
             }
@@ -109,7 +108,6 @@ class UsersController extends AppController {
         $this->request->onlyAllow('post', 'delete');
         if ($this->User->delete()) {
             $this->Session->setFlash(__('User deleted'));
-//            $this->redirect(array('action' => 'index'));
             return $this->redirect(array('controller' => 'users', 'action' => 'admin_index'));
         }
         $this->Session->setFlash(__('User was not deleted'));
@@ -127,31 +125,41 @@ class UsersController extends AppController {
                 'User.password' => $this->request->data['password']
             );
             if ($this->User->hasAny($conditions)) {
+                $userDetail = $this->User->find('first', $conditions);
+                $this->Auth->login($userDetail['User']);
                 return $this->redirect(array('controller' => 'users', 'action' => 'complete_profile'));
             } else {
                 $this->Session->setFlash(__('Invalid Username/Password'));
             }
         }
     }
-    
+
+    public function logout() {
+        return $this->redirect($this->Auth->logout());
+    }
+
     public function complete_profile() {
         
     }
-    
+
     public function signup() {
         if ($this->request->is('post')) {
-            if($this->request->data['password'] != $this->request->data['confirm_password']) {
+            if ($this->request->data['password'] != $this->request->data['confirm_password']) {
                 $this->Session->setFlash(__('Password mismatched. Please, try again.'));
             } else {
-                
                 unset($this->request->data['confirm_password']);
-//                print_r($this->request->data);exit;
                 $this->User->create();
                 if ($this->User->save($this->request->data)) {
-                    $this->Session->setFlash(__('The user has been saved'));
-                    return $this->redirect(array('action' => 'complete_profile'));
+                    $id = $this->User->id;
+                    $this->request->data['User'] = array_merge(
+                            $this->request->data['User'], array('id' => $id)
+                    );
+                    $this->Auth->login($this->request->data['User']);
+
+//                    $this->Session->setFlash(__('The user has been saved'));
+                    return $this->redirect(array('controller' => 'users', 'action' => 'complete_profile'));
                 }
-            }                        
+            }
             $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
         }
     }

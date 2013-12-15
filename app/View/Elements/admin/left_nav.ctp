@@ -5,7 +5,7 @@
         <li><a href="<?php echo $this->base ?>/industries" class="three">Industries Mgmt</a></li>
         <li><a href="<?php echo $this->base ?>/degrees" class="four">Degrees Mgmt</a></li>
         <li><a href="<?php echo $this->base ?>/skills" class="five">Skills Mgmt</a></li>
-        <li><a href="<?php echo $this->base ?>/admin/users" class="three">Users Mgmt</a></li>
+        <li><a href="<?php echo $this->base ?>/users/admin_index" class="three">Users Mgmt</a></li>
     </ul>
     <div class="clr"></div>
 </div>

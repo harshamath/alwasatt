@@ -3,7 +3,7 @@
     <li><a href="#"><?php echo __('Users'); ?></a> <span class="divider"></span></li>
 </ul> 
 <div class="clr"></div>
-<div class="inner_hdng"><h2><?php echo __('Users'); ?></h2><?php echo $this->Html->link(__('New User'), array('action' => 'add'), array('class' => 'button')); ?></div>
+<div class="inner_hdng"><h2><?php echo __('Users'); ?></h2><?php echo $this->Html->link(__('New User'), array('action' => 'admin_add'), array('class' => 'button')); ?></div>
 <div class="clr"></div>
 <?php echo $this->Session->flash(); ?>
 <div>
@@ -34,7 +34,7 @@
                 <td><?php echo h($user['User']['signup_on']); ?>&nbsp;</td>
                 <td><?php echo h($user['User']['suspended']); ?>&nbsp;</td>
                 <td class="actions">
-                    <?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $user['User']['id'])); ?>
+                    <?php echo $this->Html->link(__('Edit'), array('action' => 'admin_edit', $user['User']['id'])); ?>
                     <?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $user['User']['id']), null, __('Are you sure you want to delete # %s?', $user['User']['id'])); ?>
                 </td>
             </tr>

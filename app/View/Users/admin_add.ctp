@@ -1,6 +1,6 @@
 <ul class="breadcrumb">
     <li><a href="#">Dashboard</a> <span class="divider">>></span></li>
-    <li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> <span class="divider">>></span></li>
+    <li><?php echo $this->Html->link(__('List Users'), array('action' => 'admin_index')); ?> <span class="divider">>></span></li>
     <li><a href="#"></a> <span class="divider"><?php echo __('Add User'); ?></span></li>
 </ul>
 <div class="clr"></div>
@@ -22,7 +22,7 @@
             echo $this->Form->input('firstname');
             echo $this->Form->input('lastname');
 //            echo $this->Form->input('image');
-            echo $this->Form->input('dob');
+//            echo $this->Form->input('dob');
             echo $this->Form->input('addr1');
             echo $this->Form->input('city');
             echo $this->Form->input('state');

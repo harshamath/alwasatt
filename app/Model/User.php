@@ -26,16 +26,16 @@ class User extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'username' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+//		'username' => array(
+//			'notempty' => array(
+//				'rule' => array('notempty'),
+//				//'message' => 'Your custom message here',
+//				//'allowEmpty' => false,
+//				//'required' => false,
+//				//'last' => false, // Stop validation after this rule
+//				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+//			),
+//		),
 		'password' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -46,16 +46,16 @@ class User extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'title' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+//		'title' => array(
+//			'notempty' => array(
+//				'rule' => array('notempty'),
+//				//'message' => 'Your custom message here',
+//				//'allowEmpty' => false,
+//				//'required' => false,
+//				//'last' => false, // Stop validation after this rule
+//				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+//			),
+//		),
 		'firstname' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -76,26 +76,26 @@ class User extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'image' => array(
-			'filesize' => array(
-				'rule' => array('filesize'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'dob' => array(
-			'date' => array(
-				'rule' => array('date'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+//		'image' => array(
+//			'filesize' => array(
+//				'rule' => array('filesize'),
+//				//'message' => 'Your custom message here',
+//				//'allowEmpty' => false,
+//				//'required' => false,
+//				//'last' => false, // Stop validation after this rule
+//				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+//			),
+//		),
+//		'dob' => array(
+//			'date' => array(
+//				'rule' => array('date'),
+//				//'message' => 'Your custom message here',
+//				//'allowEmpty' => false,
+//				'required' => false,
+//				//'last' => false, // Stop validation after this rule
+//				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+//			),
+//		),
 		'email_address' => array(
 			'email' => array(
 				'rule' => array('email'),
