@@ -31,7 +31,9 @@ $cakeDescription = __d('cake_dev', 'Alwasatt');
 
         echo $this->Html->css('bootstrap_v3');
         echo $this->Html->css('style');
-
+        
+        echo $this->Html->script('jquery');
+        
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');

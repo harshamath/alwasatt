@@ -39,6 +39,8 @@
                         <label for="inputEmail3" class="col-sm-3 control-label ">&nbsp;</label>
                         <div class="col-sm-8 pl_0">
                             <button class="btn btn-primary btn-lg text-center" type="submit" id="btn_signup">Create Account</button>
+                            <samp>or</samp>
+                            <a href="javascript:void(0)" id="facebookLogin" class="login_fb"><img src="<?= $this->base?>/images/fb_login.png" height="46px" alt="Login with Facebook" title="Login with Facebook" /></a>
                         </div>
                     </div>
                 </form>

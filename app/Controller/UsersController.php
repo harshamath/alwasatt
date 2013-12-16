@@ -9,18 +9,14 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
-    public $components = array('Session', 
-        'Auth' => array(
-            'loginRedirect' => array('controller' => 'users', 'action' => 'complete_profile'),
-            'logoutRedirect' => array('controller' => 'users', 'action' => 'login')
-        )
-    );
+    private $landing_page = 'complete_profile';
+    public $components = array('Session', 'Auth');
     var $layout = 'alwasatt';
 
-//    public function beforeFilter() {
-//        parent::beforeFilter();
-//        $this->Auth->allow('*');
-//    }
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow(array("signup", "signup_facebook", "logout", "admin_index", "admin_edit", "admin_delete", "admin_view", "admin_add", ""));
+    }
 
     /**
      * admin_index method
@@ -119,6 +115,9 @@ class UsersController extends AppController {
      */
 
     public function login() {
+//        if ($this->Auth->loggedIn())
+//            return $this->redirect(array('controller' => 'users', 'action' => $this->landing_page));
+
         if ($this->request->is('post')) {
             $conditions = array(
                 'User.email_address' => $this->request->data['username'],
@@ -127,7 +126,7 @@ class UsersController extends AppController {
             if ($this->User->hasAny($conditions)) {
                 $userDetail = $this->User->find('first', $conditions);
                 $this->Auth->login($userDetail['User']);
-                return $this->redirect(array('controller' => 'users', 'action' => 'complete_profile'));
+                return $this->redirect(array('controller' => 'users', 'action' => $this->landing_page));
             } else {
                 $this->Session->setFlash(__('Invalid Username/Password'));
             }
@@ -142,11 +141,17 @@ class UsersController extends AppController {
         
     }
 
-    public function signup() {
+    public function signup() {        
         if ($this->request->is('post')) {
+            $conditions = array(
+                'User.email_address' => $this->request->data['email_address']
+            );
+
             if ($this->request->data['password'] != $this->request->data['confirm_password']) {
                 $this->Session->setFlash(__('Password mismatched. Please, try again.'));
-            } else {
+            } elseif ($this->User->hasAny($conditions)) {
+                $this->Session->setFlash(__('User with same email address already exist. Please, try again.'));
+            } else {                
                 unset($this->request->data['confirm_password']);
                 $this->User->create();
                 if ($this->User->save($this->request->data)) {
@@ -155,13 +160,47 @@ class UsersController extends AppController {
                             $this->request->data['User'], array('id' => $id)
                     );
                     $this->Auth->login($this->request->data['User']);
-
-//                    $this->Session->setFlash(__('The user has been saved'));
-                    return $this->redirect(array('controller' => 'users', 'action' => 'complete_profile'));
+                    return $this->redirect(array('controller' => 'users', 'action' => $this->landing_page));
+                } else {
+                    $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
                 }
             }
-            $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
         }
+    }
+
+    public function signup_facebook() {
+        if ($this->request->is('post')) {
+            $conditions = array(
+                'User.email_address' => $this->request->data['email']
+            );
+            
+            if ($this->User->hasAny($conditions)) {
+//                echo json_encode(array('status' => FALSE, 'message' => 'Email address already exist'));
+                $userData = $this->User->find('first', array(
+                    'conditions' => array('User.email_address' => $this->request->data['email'])
+                ));
+                $this->Auth->login($userData['User']);
+                echo json_encode(array('status' => TRUE, 'message' => 'Facebook user logged in successfully'));
+            } else {
+                $userDetail = array(
+                    'fb_uid' => $this->request->data['uid'],
+                    'fb_profile_photo' => $this->request->data['profile_photo'],
+                    'firstname' => $this->request->data['first_name'],
+                    'lastname' => $this->request->data['last_name'],
+                    'email_address' => $this->request->data['email']
+                );
+                $this->User->create();
+                if ($this->User->save($userDetail)) {
+                    $id = $this->User->id;
+                    $userData = $this->User->find('first', array(
+                        'conditions' => array('User.id' => $id)
+                    ));
+                    $this->Auth->login($userData['User']);
+                    echo json_encode(array('status' => TRUE, 'message' => 'Facebook user logged in successfully'));
+                }
+            }
+        }
+        exit;
     }
 
 }

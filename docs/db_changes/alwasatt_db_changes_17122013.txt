@@ -1,0 +1,2 @@
+ALTER TABLE `users` ADD `fb_profile_photo` VARCHAR( 255 ) NOT NULL;
+ALTER TABLE `users` ADD `fb_uid` VARCHAR( 100 ) NOT NULL;
