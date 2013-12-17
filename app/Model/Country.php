@@ -27,15 +27,46 @@ class Country extends AppModel {
 			'className' => 'User',
 			'foreignKey' => 'country_id',
 			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
+		),
+		'State'
 	);
 
+	
+		public function getCountryList( $keyField='id' ) {
+		
+		$keyFields = array('id', 'code', 'country_code');
+		if( empty($keyField) || !in_array($keyField, $keyFields) ) {
+			$keyField = 'id';	
+		}
+		
+		$keyField = $keyField == 'code' ? 'country_code' : $keyField;
+		$fields = array($keyField, 'country_name');
+		
+		$recursion = $this->recursive;
+		$this->recursive = -1;
+		
+		$countries = $this->find('list', array(
+			'conditions' => array(
+				'active' => 1
+			),
+			'fields' => $fields
+		));
+		
+		$this->recursive = $recursion;
+		
+		return $countries;
+	}
+	
+	function getIdByCode($country_code){
+		$temp = $this->recursive;
+		$this->recursive = -1;
+		
+		$id = $this->field('id', "country_code like '$country_code'");
+		$this->recursive = $temp;
+		if( empty($id)) {
+			return false;
+		}
+		
+		return $id;
+	}
 }

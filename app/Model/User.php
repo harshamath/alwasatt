@@ -1,146 +1,130 @@
-<?php
-App::uses('AppModel', 'Model');
-/**
- * User Model
- *
- */
+<?php	App::uses('AppModel', 'Model');
+
 class User extends AppModel {
 
-/**
- * Use database config
- *
- * @var string
- */
-//	public $useDbConfig = 'cakephp';
-
-/**
- * Display field
- *
- * @var string
- */
-	public $displayField = 'title';
-
-/**
- * Validation rules
- *
- * @var array
- */
+	public $name = 'User';
+	
+	var $belongsTo = array(
+		'UserCategory' => array(
+			/*'fields' => array(
+				'category_name'
+			)*/
+		),
+		'Industry',
+		'Country' => array(
+			'fields' => array(
+				'country_code',
+				'country_name as name'
+			)
+		)
+	);
+	
 	public $validate = array(
-//		'username' => array(
-//			'notempty' => array(
-//				'rule' => array('notempty'),
-//				//'message' => 'Your custom message here',
-//				//'allowEmpty' => false,
-//				//'required' => false,
-//				//'last' => false, // Stop validation after this rule
-//				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-//			),
-//		),
+		'username' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'USERNAME IS REQUIRED',
+				'allowEmpty' => false,
+				'required' => true
+			),
+			'unique_user' => array(
+				'rule' => array('isUnique'),
+				'message' => 'USERNAME ALREADY EXIST',
+				'on' => 'create'
+			)
+		),
 		'password' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'PASSWORD IS REQUIRED',
+				'allowEmpty' => false,
+				'required' => true,
 			),
 		),
-//		'title' => array(
-//			'notempty' => array(
-//				'rule' => array('notempty'),
-//				//'message' => 'Your custom message here',
-//				//'allowEmpty' => false,
-//				//'required' => false,
-//				//'last' => false, // Stop validation after this rule
-//				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-//			),
-//		),
-		'firstname' => array(
+		'first_name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'USER FIRST NAME IS REQUIRED',
+				'allowEmpty' => false,
+				'required' => false,
 			),
 		),
-		'lastname' => array(
+		'last_name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'USER LAST NAME IS REQUIRED',
+				'allowEmpty' => false,
+				'required' => true,
 			),
 		),
-//		'image' => array(
-//			'filesize' => array(
-//				'rule' => array('filesize'),
-//				//'message' => 'Your custom message here',
-//				//'allowEmpty' => false,
-//				//'required' => false,
-//				//'last' => false, // Stop validation after this rule
-//				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-//			),
-//		),
-//		'dob' => array(
+//		'birth_date' => array(
 //			'date' => array(
 //				'rule' => array('date'),
-//				//'message' => 'Your custom message here',
-//				//'allowEmpty' => false,
+//				'message' => 'Your custom message here',
+//				'allowEmpty' => false,
 //				'required' => false,
-//				//'last' => false, // Stop validation after this rule
-//				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 //			),
 //		),
-		'email_address' => array(
+		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'VALID EMAIL IS REQUIRED',
+				'allowEmpty' => false,
+				'required' => true,
 			),
-		),
+			'unique_email' => array(
+				'rule' => 'isUnique',
+				'message' => 'EMAIL ALREADY EXISTS',
+				'on' => 'create'
+			)
+		)
 	);
 	
-/**
- * belongsTo associations
- *
- * @var array
- */
-	public $belongsTo = array(
-		'Country' => array(
-			'className' => 'Country',
-			'foreignKey' => 'country_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);	
+	public function isUsernameExist($username=NULL){
+		
+		if( empty($username) ) {
+			throw new Exception('USERNAME NOT PROVIDED');	
+		}
+		
+		$id = $this->field('id',"username = '$username'");
+		if( !empty($id) || $id != NULL ) {
+			return true;	
+		}
+		
+		return false;
+	}
 	
-/**
- * hasMany associations
- *
- * @var array
- */
-	public $hasMany = array(
-		'Experience' => array(
-			'className' => 'Experience',
-			'foreignKey' => 'resume_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
-	);	
+	public function isUniqueUsername($username=NULL){
+		try{
+			!$this->isUsernameExist($username);
+		}catch(Exception $e){
+			throw $e;	
+		}	
+	}
+
+	public function isEmailExist($email=NULL){
+		
+		if( empty($email) ) {
+			throw new Exception('EMAIL NOT PROVIDED');	
+		}
+		
+		$id = $this->field('id',"email = '$email'");
+		if( !empty($id) || $id != NULL ) {
+			return true;	
+		}
+		
+		return false;
+	}
+	
+	
+	public function isUniqueEmail($email=NULL){
+		try{
+			!$this->isEmailExist($email);
+		}catch(Exception $e){
+			throw $e;	
+		}	
+	}
+
+	
 }
+?>
