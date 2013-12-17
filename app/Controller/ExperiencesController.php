@@ -46,7 +46,7 @@ class ExperiencesController extends AppController {
 			$this->request->data['Experience']['start_year'] = $this->request->data['Experience']['start_year']['year'];
 			$this->request->data['Experience']['end_month'] = $this->request->data['Experience']['end_month']['month'];
 			$this->request->data['Experience']['end_year'] = $this->request->data['Experience']['end_year']['year'];
-			$this->request->data['Experience']['resume_id'] = $this->Auth->user('id');
+//			$this->request->data['Experiences']['resume_id'] = $this->Auth->user('id');
 			$this->Experience->create();
 			if ($this->Experience->save($this->request->data)) {
 				$this->Session->setFlash(__('The experience has been saved'));
