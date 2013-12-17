@@ -107,4 +107,40 @@ class User extends AppModel {
 			),
 		),
 	);
+	
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+	public $belongsTo = array(
+		'Country' => array(
+			'className' => 'Country',
+			'foreignKey' => 'country_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);	
+	
+/**
+ * hasMany associations
+ *
+ * @var array
+ */
+	public $hasMany = array(
+		'Experience' => array(
+			'className' => 'Experience',
+			'foreignKey' => 'resume_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);	
 }

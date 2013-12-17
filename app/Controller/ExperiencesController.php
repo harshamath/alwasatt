@@ -40,12 +40,17 @@ class ExperiencesController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add() {		
 		if ($this->request->is('post')) {
+			$this->request->data['Experience']['start_month'] = $this->request->data['Experience']['start_month']['month'];
+			$this->request->data['Experience']['start_year'] = $this->request->data['Experience']['start_year']['year'];
+			$this->request->data['Experience']['end_month'] = $this->request->data['Experience']['end_month']['month'];
+			$this->request->data['Experience']['end_year'] = $this->request->data['Experience']['end_year']['year'];
+			$this->request->data['Experience']['resume_id'] = $this->Auth->user('id');
 			$this->Experience->create();
 			if ($this->Experience->save($this->request->data)) {
 				$this->Session->setFlash(__('The experience has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('controller' => 'users', 'action' => 'complete_profile'));
 			} else {
 				$this->Session->setFlash(__('The experience could not be saved. Please, try again.'));
 			}
@@ -90,11 +95,11 @@ class ExperiencesController extends AppController {
 		}
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Experience->delete()) {
-			$this->Session->setFlash(__('Experience deleted'));
-			$this->redirect(array('action' => 'index'));
+			$this->Session->setFlash(__('Experience removed'));
+			$this->redirect(array('controller' => 'users', 'action' => 'complete_profile'));
 		}
-		$this->Session->setFlash(__('Experience was not deleted'));
-		$this->redirect(array('action' => 'index'));
+		$this->Session->setFlash(__('Experience was not removed'));
+		$this->redirect(array('controller' => 'users', 'action' => 'complete_profile'));
 	}
 
 /**

@@ -84,7 +84,7 @@ function facebook_loginPopup()
 //                    $("#rsp").addClass("error_panel");
 //                    $("#rsp").html("facebook connection error.");
                 }
-                //console.log(response);
+//                console.log(response);
                 var uid = response.id;
                 var email = response.email;
                 var first_name = response.first_name;

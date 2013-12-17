@@ -138,7 +138,23 @@ class UsersController extends AppController {
     }
 
     public function complete_profile() {
-        
+        $id = $this->Auth->user('id');
+		$this->User->id = $id;
+		if (!$this->User->exists($id)) {
+            throw new NotFoundException(__('Invalid user'));
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->User->save($this->request->data)) {
+                $this->Session->setFlash(__('The profile has been updated'));
+            } else {
+                $this->Session->setFlash(__('The profile could not be updated. Please, try again.'));
+            }
+        } else {
+            $this->request->data = $this->User->read(null, $id);
+        }
+		$countries = $this->User->Country->find('list');
+		
+		$this->set(compact('countries'));
     }
 
     public function signup() {        

@@ -18,23 +18,21 @@ class Experience extends AppModel {
  *
  * @var string
  */
-	public $displayField = 'experience_title';
+	public $displayField = 'designation';
 
+	
 /**
- * Validation rules
+ * belongsTo associations
  *
  * @var array
  */
-	public $validate = array(
-		'experience_title' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
+	public $belongsTo = array(
+		'User' => array(
+			'className' => 'User',
+			'foreignKey' => 'resume_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
+	);		
 }
