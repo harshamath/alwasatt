@@ -1,0 +1,26 @@
+/*
+	customized CSS Properties (other than bootstrap) to be used in Alwasatt Admin Panel.
+	Created By: WaQaR
+*/
+
+.pl10{ padding-left: 10px !important; }
+.pr10{ padding-right: 10px !important; }
+.mt5{ margin-top: 5px !important; }
+.w95{ width: 95% !important; }
+.w_40{ width: 40px !important; }
+.w_120{width: 120px !important; }
+.w_150{width: 150px !important; }
+.w_165{width: 165px !important; }
+.w_210{width: 210px !important; }
+
+.fieldTitle{ float: left; margin-top: 5px; width: 180px; }
+.sectionTitle{ float: left; width: 90%; margin-top: 10px; margin-bottom: 10px; text-decoration:underline; text-transform:uppercase; clear: both; }
+.fieldInput{ float: left !important; }
+.fieldInput input.txt { width: 400px !important; }
+.save_cancel_btn{ height: 55px !important; }
+.heading li{ border-left: 1px solid #DCDCDC; border-right: 1px solid #DCDCDC; border-top: 1px solid #DCDCDC; float: left; font-weight:700; text-align:center; text-decoration:underline; margin-left: -1px}
+.heading li:first{ margin-left: 0px; }
+
+.content li{border-left: 1px solid #DCDCDC; border-right: 1px solid #DCDCDC; float: left; text-align: left; margin-left: -1px; padding: 7px 10px !important; }
+.content li:first{ margin-left: 0px; }
+ul.bg_light{background: none repeat scroll 0 0 #FFFFFF; }

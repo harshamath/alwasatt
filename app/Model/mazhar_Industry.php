@@ -1,6 +1,10 @@
-<?php	
-
-class Degree extends AppModel {
+<?php
+App::uses('AppModel', 'Model');
+/**
+ * Industry Model
+ *
+ */
+class Industry extends AppModel {
 
 /**
  * Use database config
@@ -14,7 +18,7 @@ class Degree extends AppModel {
  *
  * @var string
  */
-	public $displayField = 'degree';
+	public $displayField = 'name';
 
 /**
  * Validation rules
@@ -22,7 +26,7 @@ class Degree extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'degree' => array(
+		'name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',

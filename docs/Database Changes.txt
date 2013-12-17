@@ -1,0 +1,22 @@
+By WaQaR
+
+ALTER TABLE `users`
+MODIFY COLUMN `active`  tinyint(2) NULL DEFAULT 0 AFTER `industry_id`,
+MODIFY COLUMN `agreed`  tinyint(2) NULL DEFAULT 0 AFTER `inactive_reason`,
+MODIFY COLUMN `profile_completed`  tinyint(2) NULL DEFAULT 0 AFTER `agreed_datetime`,
+MODIFY COLUMN `profile_steps`  int(4) NULL DEFAULT 0 AFTER `profile_completed`;
+
+ALTER TABLE `users`
+ADD UNIQUE INDEX `unique_username` (`username`) ,
+ADD UNIQUE INDEX `unique_email` (`email`) ;
+ADD INDEX `user_f_name` (`first_name`) ,
+ADD INDEX `user_l_name` (`last_name`) ;
+
+ALTER TABLE `users` ADD CONSTRAINT `user_type_id` FOREIGN KEY (`user_type_id`) REFERENCES `user_types` (`id`);
+ALTER TABLE `users` ADD CONSTRAINT `user_cat_id` FOREIGN KEY (`user_category_id`) REFERENCES `user_categories` (`id`);
+ALTER TABLE `users` ADD CONSTRAINT `user_country` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`);
+ALTER TABLE `users` ADD CONSTRAINT `user_industry` FOREIGN KEY (`industry_id`) REFERENCES `industries` (`id`);
+
+NOTE: FOREIGN KEY CONSTRAINTS WERE NOT APPLIED ON MY END, WE NEED TO LOOK INTO IT...
+
+/*------------------------------------------------------------------------*/

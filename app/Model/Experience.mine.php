@@ -1,6 +1,5 @@
-<?php	
-
-class Degree extends AppModel {
+<?php
+class Experience extends AppModel {
 
 /**
  * Use database config
@@ -14,7 +13,7 @@ class Degree extends AppModel {
  *
  * @var string
  */
-	public $displayField = 'degree';
+	public $displayField = 'experience_title';
 
 /**
  * Validation rules
@@ -22,7 +21,7 @@ class Degree extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'degree' => array(
+		'experience_title' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',

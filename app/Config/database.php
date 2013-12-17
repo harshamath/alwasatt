@@ -62,7 +62,7 @@
  */
 class DATABASE_CONFIG {
 
-    public $demo = array(
+    public $default = array(
         'datasource' => 'Database/Mysql',
         'persistent' => false,
         'host' => 'localhost',
@@ -82,7 +82,7 @@ class DATABASE_CONFIG {
         'prefix' => '',
             //'encoding' => 'utf8',
     );
-    public $default = array(
+    public $default_mzr = array(
         'datasource' => 'Database/Mysql',
         'persistent' => false,
         'host' => 'localhost',

@@ -115,3 +115,20 @@ CakeLog::config('error', array(
 ));
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
+
+function MDY2YMD( $date ,$join = '-') {
+	if( empty($date) ) {
+		return NULL;	
+	}
+    list($mm,$dd,$yyyy) = split("[-/ ]",$date);
+    return $yyyy.$join.$mm.$join.$dd;
+}
+
+function YMD2MDY( $date ,$join = '-') {
+    list($yyyy,$mm,$dd) = split("[-/ ]",$date);
+	return $mm.$join.$dd.$join.$yyyy;
+}
+function YMD2MDYWithSec( $date ,$join = '-') {
+    list($yyyy,$mm,$dd, $hour, $min, $sec) = split("[-/: ]",$date);
+    return date("m".$join."d".$join."Y H:i:s", mktime($hour,$min,$sec,$mm,$dd,$yyyy));
+}
