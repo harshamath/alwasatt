@@ -8,22 +8,22 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label authorty">Email Address<i class="red_dot">*</i></label>
                         <div class="col-sm-8 pl_0">
-                            <input type="email" name="username" class="form-control" id="inputEmail3" placeholder="">
+                            <input type="email" name="data[User][username]" class="form-control" id="inputEmail3" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label authorty">Password<i class="red_dot">*</i></label>
                         <div class="col-sm-8 pl_0">
-                            <input type="password" name="password" class="form-control" placeholder="">
+                            <input type="password" name="data[User][password]" class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label authorty">&nbsp;</label>
                         <div class="col-sm-8 pl_0">
                             <label class="remember">
-                                <input type="checkbox" />
+                                <input type="checkbox" name="data[User][rememberMe]" value="1" />
                                 Remember me</label>
-                            <span>|</span> <a href="javascript:;">Forgot my Password</a> </div>
+                            <span>|</span> <?php echo $this->Html->link('Forgot my password?', '/users/forgot_password'); ?> </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label authorty">&nbsp;</label>

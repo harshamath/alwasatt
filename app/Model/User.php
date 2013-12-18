@@ -49,14 +49,14 @@ class User extends AppModel {
 				'required' => false,
 			),
 		),
-		'last_name' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				'message' => 'USER LAST NAME IS REQUIRED',
-				'allowEmpty' => false,
-				'required' => true,
-			),
-		),
+//		'last_name' => array(
+//			'notempty' => array(
+//				'rule' => array('notempty'),
+//				'message' => 'USER LAST NAME IS REQUIRED',
+//				'allowEmpty' => false,
+//				'required' => false,
+//			),
+//		),
 //		'birth_date' => array(
 //			'date' => array(
 //				'rule' => array('date'),
@@ -65,7 +65,7 @@ class User extends AppModel {
 //				'required' => false,
 //			),
 //		),
-		'email' => array(
+		'email_address' => array(
 			'email' => array(
 				'rule' => array('email'),
 				'message' => 'VALID EMAIL IS REQUIRED',
