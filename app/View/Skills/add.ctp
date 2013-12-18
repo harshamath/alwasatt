@@ -17,7 +17,7 @@
         <?php echo $this->Form->create('Skill'); ?>
         <fieldset>
             <?php
-            echo $this->Form->input('skill_title');
+            echo $this->Form->input('name');
             ?>
         </fieldset>
         <?php echo $this->Form->end(__('Submit')); ?>

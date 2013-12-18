@@ -244,7 +244,7 @@ class UsersController extends AppController {
     function forgot_password() {
         if ($this->request->is('post')) {
 
-            $user = $this->User->findByEmailAddress($this->request->data['User']['email']);
+            $user = $this->User->findByEmail($this->request->data['User']['email']);
 
             if (empty($user)) {
                 $this->Session->setFlash(__('Sorry, the username entered was not found.'));
