@@ -14,7 +14,7 @@ class User extends AppModel {
 		'Country' => array(
 			'fields' => array(
 				'country_code',
-				'country_name as name'
+				'country_name'
 			)
 		)
 	);

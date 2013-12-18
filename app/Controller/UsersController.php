@@ -10,7 +10,7 @@ App::uses('AppController', 'Controller');
 class UsersController extends AppController {
 
     private $landing_page = 'complete_profile';
-    public $components = array('Session', 'Cookie', 'Auth', 'Email');
+    public $components = array('Session', 'Cookie', 'Email', 'Auth');
     var $helpers = array('Time');
     var $layout = 'alwasatt';
 
@@ -116,13 +116,13 @@ class UsersController extends AppController {
      */
 
     public function login() {
-//        if ($this->Auth->loggedIn())
-//            return $this->redirect(array('controller' => 'users', 'action' => $this->landing_page));
-
+        if ($this->Auth->loggedIn())
+            return $this->redirect(array('controller' => 'users', 'action' => $this->landing_page));
+        
         if ($this->request->is('post')) {
             $conditions = array(
-                'User.email_address' => $this->request->data['User']['username'],
-                'User.password' => $this->request->data['User']['password']
+                'User.email' => $this->request->data['User']['username'],
+                'User.password' => $this->Auth->password($this->request->data['User']['password'])
             );
             if ($this->User->hasAny($conditions)) {
                 if (isset($this->request->data['User']['rememberMe']) && $this->request->data['User']['rememberMe'] == 1) {
@@ -154,6 +154,7 @@ class UsersController extends AppController {
     }
 
     public function complete_profile() {
+        $this->layout = 'alwasatt';
         $id = $this->Auth->user('id');
         $this->User->id = $id;
         if (!$this->User->exists($id)) {
@@ -176,7 +177,7 @@ class UsersController extends AppController {
     public function signup() {
         if ($this->request->is('post')) {
             $conditions = array(
-                'User.email_address' => $this->request->data['email_address']
+                'User.email' => $this->request->data['email']
             );
 
             if ($this->request->data['password'] != $this->request->data['confirm_password']) {
@@ -185,6 +186,7 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('User with same email address already exist. Please, try again.'));
             } else {
                 unset($this->request->data['confirm_password']);
+                $this->request->data['password'] = $this->Auth->password($this->request->data['confirm_password']);
                 $this->User->create();
                 if ($this->User->save($this->request->data)) {
                     $id = $this->User->id;
@@ -203,13 +205,13 @@ class UsersController extends AppController {
     public function signup_facebook() {
         if ($this->request->is('post')) {
             $conditions = array(
-                'User.email_address' => $this->request->data['email']
+                'User.email' => $this->request->data['email']
             );
 
             if ($this->User->hasAny($conditions)) {
 //                echo json_encode(array('status' => FALSE, 'message' => 'Email address already exist'));
                 $userData = $this->User->find('first', array(
-                    'conditions' => array('User.email_address' => $this->request->data['email'])
+                    'conditions' => array('User.email' => $this->request->data['email'])
                 ));
                 $this->Auth->login($userData['User']);
                 echo json_encode(array('status' => TRUE, 'message' => 'Facebook user logged in successfully'));
@@ -217,9 +219,9 @@ class UsersController extends AppController {
                 $userDetail = array(
                     'fb_uid' => $this->request->data['uid'],
                     'fb_profile_photo' => $this->request->data['profile_photo'],
-                    'firstname' => $this->request->data['first_name'],
-                    'lastname' => $this->request->data['last_name'],
-                    'email_address' => $this->request->data['email']
+                    'first_name' => $this->request->data['first_name'],
+                    'last_name' => $this->request->data['last_name'],
+                    'email' => $this->request->data['email']
                 );
                 $this->User->create();
                 if ($this->User->save($userDetail)) {
@@ -242,7 +244,7 @@ class UsersController extends AppController {
     function forgot_password() {
         if ($this->request->is('post')) {
 
-            $user = $this->User->findByEmailAddress($this->request->data['User']['email_address']);
+            $user = $this->User->findByEmailAddress($this->request->data['User']['email']);
 
             if (empty($user)) {
                 $this->Session->setFlash(__('Sorry, the username entered was not found.'));
@@ -303,7 +305,7 @@ class UsersController extends AppController {
             $this->User->id = $id;
             $User = $this->User->read();
 
-            $this->Email->to = $User['User']['email_address'];
+            $this->Email->to = $User['User']['email'];
             $this->Email->subject = 'Password Reset Request - DO NOT REPLY';
             $this->Email->replyTo = 'do-not-reply@example.com';
             $this->Email->from = 'Do Not Reply <do-not-reply@example.com>';
@@ -327,7 +329,7 @@ class UsersController extends AppController {
             $this->User->id = $id;
             $User = $this->User->read();
 
-            $this->Email->to = $User['User']['email_address'];
+            $this->Email->to = $User['User']['email'];
             $this->Email->subject = 'Password Changed - DO NOT REPLY';
             $this->Email->replyTo = 'do-not-reply@example.com';
             $this->Email->from = 'Do Not Reply <do-not-reply@example.com>';
@@ -388,6 +390,19 @@ class UsersController extends AppController {
                 }
             }
         }
+    }
+
+    public function profile2() {
+        $this->layout = 'profile';
+        $id = $this->Auth->user('id');
+        $this->User->id = $id;
+        if (!$this->User->exists($id)) {
+            throw new NotFoundException(__('Invalid user'));
+        }
+
+        $user = $this->User->read(null, $id);
+        $countries = $this->User->Country->find('list');
+        $this->set(compact('countries', 'user'));
     }
 
 }

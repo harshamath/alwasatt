@@ -19,8 +19,8 @@
             echo $this->Form->input('username');
             echo $this->Form->input('password');
             echo $this->Form->input('title');
-            echo $this->Form->input('firstname');
-            echo $this->Form->input('lastname');
+            echo $this->Form->input('first_name');
+            echo $this->Form->input('last_name');
 //            echo $this->Form->input('image');
 //            echo $this->Form->input('dob');
             echo $this->Form->input('addr1');
@@ -30,11 +30,8 @@
             echo $this->Form->input('country');
             echo $this->Form->input('telephone');
             echo $this->Form->input('mobile');
-            echo $this->Form->input('email_address');
-//            echo $this->Form->input('last_login');
-//            echo $this->Form->input('signup_on');
+            echo $this->Form->input('email');
             echo $this->Form->input('suspended');
-//            echo $this->Form->input('updated_at');
             ?>
         </fieldset>
         <?php echo $this->Form->end(__('Submit')); ?>

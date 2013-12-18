@@ -8,19 +8,19 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">First Name<i class="red_dot">*</i></label>
                         <div class="col-sm-8 pl_0">
-                            <input type="text" name="firstname" class="form-control" placeholder="">
+                            <input type="text" name="first_name" class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">Last Name<i class="red_dot">*</i></label>
                         <div class="col-sm-8 pl_0">
-                            <input type="text" name="lastname" class="form-control" placeholder="">
+                            <input type="text" name="last_name" class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label ">Email<i class="red_dot">*</i></label>
                         <div class="col-sm-8 pl_0">
-                            <input type="email" name="email_address" class="form-control" placeholder="">
+                            <input type="email" name="email" class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">

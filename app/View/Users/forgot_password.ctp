@@ -8,7 +8,7 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label authorty">Email Address<i class="red_dot">*</i></label>
                         <div class="col-sm-8 pl_0">
-                            <input type="email" name="data[User][email_address]" class="form-control" id="inputEmail3" placeholder="">
+                            <input type="email" name="data[User][email]" class="form-control" id="inputEmail3" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
