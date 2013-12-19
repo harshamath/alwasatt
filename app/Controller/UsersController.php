@@ -9,7 +9,6 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
-    private $landing_page = 'complete_profile';
     public $components = array('Session', 'Cookie', 'Email', 'Auth');
     var $helpers = array('Time');
     var $layout = 'alwasatt';
@@ -116,9 +115,18 @@ class UsersController extends AppController {
      */
 
     public function login() {
-		
         if ($this->Auth->loggedIn())
             return $this->redirect(array('controller' => 'users', 'action' => 'profile'));
+
+        if (isset($_SERVER['SERVER_NAME'])) {
+            if ($_SERVER['SERVER_NAME'] == 'localhost') {
+                $this->set('FB_API_KEY', '707432672600105');
+            } elseif ($_SERVER['SERVER_NAME'] == 'thetechtors.com') {
+                $this->set('FB_API_KEY', '220619734777696');
+            } elseif ($_SERVER['SERVER_NAME'] == 'alwassat.oregasoft.com') {
+                $this->set('FB_API_KEY', '429890107113580');
+            }
+        }
         
         if ($this->request->is('post')) {
             $conditions = array(
@@ -176,6 +184,16 @@ class UsersController extends AppController {
     }
 
     public function signup() {
+        if (isset($_SERVER['SERVER_NAME'])) {
+            if ($_SERVER['SERVER_NAME'] == 'localhost') {
+                $this->set('FB_API_KEY', '707432672600105');
+            } elseif ($_SERVER['SERVER_NAME'] == 'thetechtors.com') {
+                $this->set('FB_API_KEY', '220619734777696');
+            } elseif ($_SERVER['SERVER_NAME'] == 'alwassat.oregasoft.com') {
+                $this->set('FB_API_KEY', '429890107113580');
+            }
+        }
+        
         if ($this->request->is('post')) {
             $conditions = array(
                 'User.email' => $this->request->data['email']
@@ -187,15 +205,14 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('User with same email address already exist. Please, try again.'));
             } else {
                 unset($this->request->data['confirm_password']);
-                $this->request->data['password'] = $this->Auth->password($this->request->data['confirm_password']);
+                $this->request->data['password'] = $this->Auth->password($this->request->data['password']);
+                $this->request->data['User']['uuid'] = String::uuid();
                 $this->User->create();
                 if ($this->User->save($this->request->data)) {
                     $id = $this->User->id;
-                    $this->request->data['User'] = array_merge(
-                            $this->request->data['User'], array('id' => $id)
-                    );
+                    $this->request->data['User'] = array_merge($this->request->data, array('id' => $id));
                     $this->Auth->login($this->request->data['User']);
-                    return $this->redirect(array('controller' => 'users', 'action' => $this->landing_page));
+                    return $this->redirect(array('controller' => 'users', 'action' => 'profile'));
                 } else {
                     $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
                 }
@@ -381,8 +398,17 @@ class UsersController extends AppController {
 
             $user = $this->User->findByResetPasswordToken($this->request->data['User']['reset_password_token']);
             $this->User->id = $user['User']['id'];
+            
+            if ($this->request->data['User']['new_passwd'] != $this->request->data['User']['confirm_passwd']) {
+                $this->Session->setFlash(__('Password mismatched. Please, try again.'));
+                return $this->redirect(array('controller' => 'users', 'action' => 'login'));
+            } 
+            
+            unset($this->request->data['User']['confirm_passwd']);
+            $this->request->data['User']['password'] = $this->Auth->password($this->request->data['User']['new_passwd']);
+            
 
-            if ($this->User->save($this->request->data, array('validate' => 'only'))) {
+            if ($this->User->save($this->request->data)) {
                 $this->request->data['User']['reset_password_token'] = $this->request->data['User']['token_created_at'] = null;
                 if ($this->User->save($this->request->data) && $this->__sendPasswordChangedEmail($user['User']['id'])) {
                     unset($_SESSION['token']);
@@ -393,9 +419,9 @@ class UsersController extends AppController {
         }
     }
 
-    public function profile($id=null) {
+    public function profile($id = null) {
         $this->layout = 'profile';
-		
+
         $id = $this->Auth->user('id');
         $this->User->id = $id;
         if (!$this->User->exists($id)) {

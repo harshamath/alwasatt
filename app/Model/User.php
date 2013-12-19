@@ -19,66 +19,66 @@ class User extends AppModel {
 		)
 	);
 	
-	public $validate = array(
-		'username' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				'message' => 'USERNAME IS REQUIRED',
-				'allowEmpty' => false,
-				'required' => true
-			),
-			'unique_user' => array(
-				'rule' => array('isUnique'),
-				'message' => 'USERNAME ALREADY EXIST',
-				'on' => 'create'
-			)
-		),
-		'password' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				'message' => 'PASSWORD IS REQUIRED',
-				'allowEmpty' => false,
-				'required' => true,
-			),
-		),
-		'first_name' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				'message' => 'USER FIRST NAME IS REQUIRED',
-				'allowEmpty' => false,
-				'required' => false,
-			),
-		),
-//		'last_name' => array(
+//	public $validate = array(
+//		'username' => array(
 //			'notempty' => array(
 //				'rule' => array('notempty'),
-//				'message' => 'USER LAST NAME IS REQUIRED',
+//				'message' => 'USERNAME IS REQUIRED',
+//				'allowEmpty' => false,
+//				'required' => true
+//			),
+//			'unique_user' => array(
+//				'rule' => array('isUnique'),
+//				'message' => 'USERNAME ALREADY EXIST',
+//				'on' => 'create'
+//			)
+//		),
+//		'password' => array(
+//			'notempty' => array(
+//				'rule' => array('notempty'),
+//				'message' => 'PASSWORD IS REQUIRED',
+//				'allowEmpty' => false,
+//				'required' => true,
+//			),
+//		),
+//		'first_name' => array(
+//			'notempty' => array(
+//				'rule' => array('notempty'),
+//				'message' => 'USER FIRST NAME IS REQUIRED',
 //				'allowEmpty' => false,
 //				'required' => false,
 //			),
 //		),
-//		'birth_date' => array(
-//			'date' => array(
-//				'rule' => array('date'),
-//				'message' => 'Your custom message here',
+////		'last_name' => array(
+////			'notempty' => array(
+////				'rule' => array('notempty'),
+////				'message' => 'USER LAST NAME IS REQUIRED',
+////				'allowEmpty' => false,
+////				'required' => false,
+////			),
+////		),
+////		'birth_date' => array(
+////			'date' => array(
+////				'rule' => array('date'),
+////				'message' => 'Your custom message here',
+////				'allowEmpty' => false,
+////				'required' => false,
+////			),
+////		),
+//		'email_address' => array(
+//			'email' => array(
+//				'rule' => array('email'),
+//				'message' => 'VALID EMAIL IS REQUIRED',
 //				'allowEmpty' => false,
-//				'required' => false,
+//				'required' => true,
 //			),
-//		),
-		'email_address' => array(
-			'email' => array(
-				'rule' => array('email'),
-				'message' => 'VALID EMAIL IS REQUIRED',
-				'allowEmpty' => false,
-				'required' => true,
-			),
-			'unique_email' => array(
-				'rule' => 'isUnique',
-				'message' => 'EMAIL ALREADY EXISTS',
-				'on' => 'create'
-			)
-		)
-	);
+//			'unique_email' => array(
+//				'rule' => 'isUnique',
+//				'message' => 'EMAIL ALREADY EXISTS',
+//				'on' => 'create'
+//			)
+//		)
+//	);
 	
 	public function isUsernameExist($username=NULL){
 		
