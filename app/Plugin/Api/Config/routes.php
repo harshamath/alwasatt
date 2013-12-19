@@ -19,26 +19,11 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
-/**
- * Here, we are connecting '/' (base path) to controller called 'Pages',
- * its action called 'display', and we pass a param to select the view file
- * to use (in this case, /app/View/Pages/home.ctp)...
- */
-	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-/**
- * ...and connect the rest of 'Pages' controller's URLs.
- */
-	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 	
-	Router::connect('/recipes', array('plugin' => 'meal_builder', 'controller' => 'nutrition', 'action' => 'recipes'));
-/**
- * Load all plugin routes. See the CakePlugin documentation on
- * how to customize the loading of plugin routes.
- */
-	CakePlugin::routes();
-
-/**
- * Load the CakePHP default routes. Only remove this if you do not want to use
- * the built-in default routes.
- */
-	require CAKE . 'Config' . DS . 'routes.php';
+	Router::connect('/edu_degrees', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'list_degrees'));
+	Router::connect('/edu_majors', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'major_fields_of_study'));
+	Router::connect('/search_college', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'college_search'));
+	Router::connect('/occupations', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'occupations'));
+	Router::connect('/skills', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'skills'));
+	
+?>

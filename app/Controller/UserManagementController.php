@@ -7,7 +7,7 @@ class UserManagementController extends AppController {
     var $layout = 'admin';
 
     public function beforeFilter() {
-        //	$this->Auth->allow('*');	
+        	$this->Auth->allow('admin_user_listing', 'admin_new_user', 'admin_save_user', 'admin_user_education', 'list_degrees');	
     }
 
     public function admin_user_listing() {
@@ -109,7 +109,6 @@ class UserManagementController extends AppController {
     public function admin_save_user() {
         $req = $_POST;
 
-
         $primary_cat_field = 'UserCategory';
         $secondary_cat_field = 'UserSubCategory';
         $cat_field = $primary_cat_field;
@@ -150,6 +149,12 @@ class UserManagementController extends AppController {
 
         die('SAVE USER');
     }
+
+	public function admin_user_education($member_uuid=NULL){
+		if( empty($member_uuid) || !($memberId = $this->User->getIdByUuid($member_uuid)) ) {
+			$this->redirect('/admin/user_management/user_listing?error=valid_member_id_required');	
+		}
+	}
 
 }
 
