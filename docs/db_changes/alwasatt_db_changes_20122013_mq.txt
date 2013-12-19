@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sender_id` int(11) NOT NULL,
+  `recipient_id` int(11) NOT NULL,
+  `subject` text NOT NULL,
+  `body` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `sender_id`, `recipient_id`, `subject`, `body`) VALUES
+(1, 2, 2, '1st message', '1st message body'),
+(2, 2, 2, 'Message2 text', 'message 2 body'),
+(3, 2, 2, 'Message2 text', 'message 2 body'),
+(4, 2, 2, 'Message text', 'message  body'),
+(5, 2, 2, 'Message text', 'message  body'),
+(6, 2, 2, 'Message text', 'message  body'),
+(7, 2, 2, 'Message text', 'message  body');
