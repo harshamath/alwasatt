@@ -615,6 +615,19 @@ div#login_page .col-lg-12 .col-lg-7 .form-horizontal .form-group label.dot_adjus
 .user_prof_wiz_cont1 {
 	margin-top: 20px;
 }
+.table {
+	margin-top: 25px;
+}
+.table > tbody > tr > td {
+	border:0px;
+	color:#353535;
+}
+td.lable {
+	width: 15%;
+}
+.thirtypercent {
+	width: 30%;
+}
 @media (max-width: 768px) {
 
 	.col-xs-12 {

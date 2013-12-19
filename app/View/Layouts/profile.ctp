@@ -45,8 +45,11 @@ $cakeDescription = __d('cake_dev', 'Alwasatt');
     <?php echo $this->element('header_new'); ?>
 <div class="container">
     <div class="row">
-		  <?php echo $this->element('profile_side'); ?> 
-          <?php echo $this->fetch('content'); ?>      
+		  <?php echo $this->element('profile_side'); ?>
+          <div class="col-md-8">
+			  <?php echo $this->element('user_detail'); ?> 
+              <?php echo $this->fetch('content'); ?>  
+          </div>    
         
     </div>
 </div>

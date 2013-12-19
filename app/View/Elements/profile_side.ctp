@@ -1,7 +1,7 @@
 <div class="col-md-4 abox">
             <div class="row">
                 <div class="col-xs-3 col-md-3"></div>
-                <img src="../images/userpic.jpg" class="col-xs-6 col-md-6 userprofilebg">
+                <img src="<?php echo $this->Html->url('/images/userpic.jpg'); ?>" class="col-xs-6 col-md-6 userprofilebg">
                 <div class="col-xs-3 col-md-3"></div>
             </div>
             <div class="btm-line"></div>
@@ -17,11 +17,12 @@
                 </li>
                 <li class="heading"><div class="hor-line"></div><span class="icon-profile"></span> <a>Profile</a>
                     <ul class="usersubnav">
-                        <li><a href="#">About Me</a></li>
-                        <li><?php  echo $this->Html->link('Experience',array('controller'=>'experiences','action'=>'add',AuthComponent::user('id'))); ?></li>
-                        <li><a href="#">Education</a></li>
+                        <li><?php  echo $this->Html->link('About me',array('controller'=>'users','action'=>'profile',AuthComponent::user('id')));?></li>
+                        <li><?php  echo $this->Html->link('Experience',array('controller'=>'experiences','action'=>'index')); ?></li>
+                       <li><?php  echo $this->Html->link('Educations',array('controller'=>'educations','action'=>'index'));?></li>
                         <li><?php  echo $this->Html->link('Certifications',array('controller'=>'certifications','action'=>'index'));?></li>
-                        <li><?php  echo $this->Html->link('Patents',array('controller'=>'patents','action'=>'index',AuthComponent::user('id')));?></li>
+                        <li><?php  echo $this->Html->link('Patents',array('controller'=>'patents','action'=>'index'));?></li>
+                         <li><?php  echo $this->Html->link('Awards',array('controller'=>'awards','action'=>'index'));?></li>
                         <li><a href="#">Connections</a></li>
                         <li><a href="#">Contact info</a></li>
                     </ul>

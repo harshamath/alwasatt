@@ -6,12 +6,15 @@
                 <div class="row">
                     <div class="user_prof_wiz_cont1 col-md-12">
                       <div class="col-md-11 col-md-offset-1">
-                      <?php echo $this->Form->create('UserExperience',array('url' => array('controller' => 'experiences', 'action' => 'edit'),'class'=>'form-horizontal','role'=>'form')); 
+                      <?php echo $this->Form->create('UserEducation',array('url' => array('controller' => 'educations', 'action' => 'edit'),'class'=>'form-horizontal','role'=>'form'));
 					  echo $this->Form->hidden('id');
 					  ?>
-                     <?php  echo $this->Form->input('organization_id',array('class'=>'form-control','between'=>'<div class="col-md-5 pl_0">','after'=>'</div>','div'=>'form-group','label'=>array('class'=>'col-md-4 control-label','text'=>'Company Name<i class="red_dot">&bull;</i>')),array('escape'=>false));
+                   
+                     <?php  echo $this->Form->input('education_degree_id',array('options'=>$EducationDegrees,'class'=>'form-control','between'=>'<div class="col-md-5 pl_0">','after'=>'</div>','div'=>'form-group','label'=>array('class'=>'col-md-4 control-label','text'=>'Degree<i class="red_dot">&bull;</i>')),array('escape'=>false));
 					 
-					   echo $this->Form->input('occupation_id',array('class'=>'form-control','between'=>'<div class="col-md-5 pl_0">','after'=>'</div>','div'=>'form-group','label'=>array('class'=>'col-md-4 control-label','text'=>'Designation<i class="red_dot">&bull;</i>')),array('escape'=>false));
+					   	echo $this->Form->input('education_major_id',array('options'=>$EducationMajors,'class'=>'form-control','between'=>'<div class="col-md-5 pl_0">','after'=>'</div>','div'=>'form-group','label'=>array('class'=>'col-md-4 control-label','text'=>'Major Subject<i class="red_dot">&bull;</i>')),array('escape'=>false));
+                       
+					     echo $this->Form->input('education_institute_id',array('options'=>$EducationInstitutes,'class'=>'form-control','between'=>'<div class="col-md-5 pl_0">','after'=>'</div>','div'=>'form-group','label'=>array('class'=>'col-md-4 control-label','text'=>'Institute<i class="red_dot">&bull;</i>')),array('escape'=>false));
                        
                        
                         
@@ -45,24 +48,18 @@
                           <div class="form-group">
                             <label class="col-md-4 control-label pr_5" for="inputEmail3">&nbsp;</label>
                             <label>
-                            <?php echo $this->Form->input('currently_employed',array('type'=>'checkbox','div'=>false,'label'=>false)); ?>
+                            <?php echo $this->Form->input('is_completed',array('type'=>'checkbox','div'=>false,'label'=>false)); ?>
                        <!--<input type="checkbox" name="data[Certification][expire]">-->
-                            Currently employed in this Company</label>
+                            Education Completed</label>
                           </div>
-                           <div class="form-group">
-                            <label class="col-md-4 control-label ptb_8" for="inputEmail3">Description</label>
-                            <div class="col-md-5 pl_0">
-                            <?php echo $this->Form->textarea('description',array('div'=>false,'label'=>false,'class'=>'form-control','rows'=>'4','placeholder'=>'Describe your experience here')); ?>
-                              
-                            </div>
-                          </div>
+                           
                           
                         </form>
                         <div class="col-md-12">
-                          <?php echo $this->Form->postLink('<span class="glyphicon glyphicon-remove"></span>Remove this Experience',array('controller'=>'experiences','action'=>'delete',$this->request->data['UserExperience']['id']),array('class'=>'pull-left','escape'=>false), __('Are you sure you want to delete # %s?',$this->request->data['UserExperience']['id'])); ?>
+                          <?php echo $this->Form->postLink('<span class="glyphicon glyphicon-remove"></span>Remove this Education',array('controller'=>'educations','action'=>'delete',$this->request->data['UserEducation']['id']),array('class'=>'pull-left','escape'=>false), __('Are you sure you want to delete # %s?',$this->request->data['UserEducation']['id'])); ?>
                          
                             <button class="btn btn-primary pull-right" type="button" id="submitCertificate">Save</button>
-                            <?php echo $this->Html->link('Cancel',array('controller'=>'experiences','action'=>'index'),array('class'=>'btn btn-primary pull-right mr10')) ?> 
+                            <?php echo $this->Html->link('Cancel',array('controller'=>'educations','action'=>'index'),array('class'=>'btn btn-primary pull-right mr10')) ?> 
                           </div>
                       </div>
                     </div>
@@ -77,7 +74,7 @@ $(document).ready(function(){
 						   
 						   $('#submitCertificate').on('click',function(e){
 																	   e.preventDefault();
-																	   $("#UserExperienceEditForm").submit();
+																	   $("#UserEducationEditForm").submit();
 																	   });
 						   
 						   

@@ -16,7 +16,7 @@
             	<li><a href="#" class="user">User</a></li>
                 <li><a href="#" class="logo"><span>2</span></a></li>
                 <li><a href="#" class="mail"><span>2</span></a></li>
-                <li class="setting"><a href="#">Liena Jonson</a></li>
+                <li class="setting"><?php //echo AuthComponent::user('first_name').' '.AuthComponent::user('last_name') ?> <?php echo $this->Html->link('Logout',array('controller'=>'users','action'=>'logout'))?></li>
             </ul>
         </div>
         </div>

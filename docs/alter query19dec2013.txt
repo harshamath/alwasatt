@@ -1,0 +1,1 @@
+ALTER TABLE `user_experiences` ADD `description` TEXT NOT NULL AFTER `end_date` ;

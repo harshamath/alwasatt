@@ -13,7 +13,7 @@ class AwardsController extends AppController {
  *
  * @var array
  */
- var $layout = 'alwasatt';
+ var $layout = 'profile';
 	public $components = array('Paginator');
 
 /**
@@ -48,6 +48,7 @@ class AwardsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			$this->request->data['Award']['user_id']=AuthComponent::user('id');
 			$this->Award->create();
 			if ($this->Award->save($this->request->data)) {
 				$this->Session->setFlash(__('The award has been saved.'));

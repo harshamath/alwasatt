@@ -116,8 +116,9 @@ class UsersController extends AppController {
      */
 
     public function login() {
+		
         if ($this->Auth->loggedIn())
-            return $this->redirect(array('controller' => 'users', 'action' => $this->landing_page));
+            return $this->redirect(array('controller' => 'users', 'action' => 'profile'));
         
         if ($this->request->is('post')) {
             $conditions = array(
@@ -140,7 +141,7 @@ class UsersController extends AppController {
 
                 $userDetail = $this->User->find('first', $conditions);
                 $this->Auth->login($userDetail['User']);
-                return $this->redirect(array('controller' => 'users', 'action' => $this->landing_page));
+                return $this->redirect(array('controller' => 'users', 'action' => 'profile'));
             } else {
                 $this->Session->setFlash(__('Invalid Username/Password'));
             }
@@ -392,8 +393,9 @@ class UsersController extends AppController {
         }
     }
 
-    public function profile2() {
+    public function profile($id=null) {
         $this->layout = 'profile';
+		
         $id = $this->Auth->user('id');
         $this->User->id = $id;
         if (!$this->User->exists($id)) {
@@ -401,8 +403,8 @@ class UsersController extends AppController {
         }
 
         $user = $this->User->read(null, $id);
-        $countries = $this->User->Country->find('list');
-        $this->set(compact('countries', 'user'));
+        //$countries = $this->User->Country->find('list');
+        $this->set(compact('user'));
     }
 
 }

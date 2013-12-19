@@ -1,40 +1,21 @@
-<div class="experiences index">
-	<h2><?php echo __('Experiences'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('experience_title'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php foreach ($experiences as $experience): ?>
-	<tr>
-		<td><?php echo h($experience['Experience']['id']); ?>&nbsp;</td>
-		<td><?php echo h($experience['Experience']['experience_title']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $experience['Experience']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $experience['Experience']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $experience['Experience']['id']), null, __('Are you sure you want to delete # %s?', $experience['Experience']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Experience'), array('action' => 'add')); ?></li>
-	</ul>
-</div>
+<div class="abox mtop15">
+                <div class="certificatedetail">
+                    <h4 class="media-heading">Experiences</h4>
+                    <?php echo $this->Html->link('Add Experience',array('controller'=>'experiences','action'=>'add'),array('class'=>'btn btn-primary btnc')) ?>
+                  	
+                </div>
+                
+                <?php foreach($UserExperience as $cert): ?>
+                <div class="certificate">
+                <?php echo $this->Html->link('Edit',array('controller'=>'experiences','action'=>'edit',$cert['UserExperience']['id']),array('class'=>'pull-right normallink')); ?>
+                <h4 class="certificate-name"><?php echo $cert['Organization']['name']; ?></h4>
+                 <span class="certificate-category"><?php echo $cert['Occupation']['name']; ?></span>
+                 <span class="certificate-validity"><?php echo date('F,Y',strtotime($cert['UserExperience']['start_date']));?> - <?php echo date('F,Y',strtotime($cert['UserExperience']['end_date']));
+				 ?></span>
+                 <p><?php echo $cert['UserExperience']['description']; ?></p>
+                
+                   </div>
+                <?php endforeach;?>
+                
+                
+            </div>

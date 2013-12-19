@@ -75,6 +75,8 @@ class CertificationsController extends AppController {
 			throw new NotFoundException(__('Invalid certification'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
+			$this->request->data['Certification']['certification_start_date']['day']=1;
+			$this->request->data['Certification']['certification_end_date']['day']=1;
 			if ($this->Certification->save($this->request->data)) {
 				$this->Session->setFlash(__('The certification has been saved.'));
 				return $this->redirect(array('action' => 'index'));

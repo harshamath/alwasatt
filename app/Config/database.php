@@ -76,9 +76,9 @@ class DATABASE_CONFIG {
         'datasource' => 'Database/Mysql',
         'persistent' => false,
         'host' => 'localhost',
-        'login' => 'thetecht_wasatt',
-        'password' => 'pwd4alwasatt',
-        'database' => 'thetecht_alwassat',
+        'login' => 'iqrasalt_alw',
+        'password' => 'p#%2@U%)6K2]',
+        'database' => 'iqrasalt_alwasatt',
         'prefix' => '',
             //'encoding' => 'utf8',
     );

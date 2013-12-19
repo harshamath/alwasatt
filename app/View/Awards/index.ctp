@@ -1,4 +1,56 @@
-<div class="awards index">
+
+            <div class="abox mtop15">
+                <div class="certificatedetail">
+                    <h4 class="media-heading">Awards</h4>
+                    <?php echo $this->Html->link('Add Award',array('controller'=>'awards','action'=>'add'),array('class'=>'btn btn-primary btnc')) ?>
+                  	
+                </div>
+                
+                <?php foreach($awards as $cert): ?>
+                <div class="certificate">
+                <?php echo $this->Html->link('Edit',array('controller'=>'awards','action'=>'edit',$cert['Award']['id']),array('class'=>'pull-right normallink')); ?>
+                <h4 class="certificate-name"><?php echo $cert['Award']['title']; ?></h4>
+                 <span class="certificate-category"><?php echo $cert['Award']['issuer']; ?></span>
+                 <span class="certificate-validity">Award Date - <?php echo date('jF,Y',strtotime($cert['Award']['award_date']));
+				 ?></span>
+                 <p><?php echo $cert['Award']['description']; ?>jkhgjgjgjgjgjhgkjjjjjjjjjjj hghjhgjghjghjgjhg</p>
+                
+                   </div>
+                <?php endforeach;?>
+                
+                
+            </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php /*?><div class="awards index">
 	<h2><?php echo __('Awards'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
@@ -56,3 +108,4 @@
 		<li><?php echo $this->Html->link(__('New Occupation'), array('controller' => 'occupations', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+<?php */?>
