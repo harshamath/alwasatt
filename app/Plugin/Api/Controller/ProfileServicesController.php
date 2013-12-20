@@ -36,6 +36,10 @@ class ProfileServicesController extends ApiAppController {
 			$this->send_response(parent::ERROR_CODE_200, parent::ERROR_OK, $response);
 			 
 		}catch(Exception $e){
+			if( !empty($_REQUEST['reqType']) && $_REQUEST['reqType'] == 'ac_ajax' ) {
+				$response['DegreeList'] = array();
+				$this->send_response(parent::ERROR_CODE_200, parent::ERROR_EMPTY, $response);
+			}
 			$this->send_error_response( $e->getMessage() );
 		}
 	}
@@ -58,6 +62,10 @@ class ProfileServicesController extends ApiAppController {
 			$this->send_response(parent::ERROR_CODE_200, parent::ERROR_OK, $response);
 			 
 		}catch(Exception $e){
+			if( !empty($_REQUEST['reqType']) && $_REQUEST['reqType'] == 'ac_ajax' ) {
+				$response['MajorFields'] = array();
+				$this->send_response(parent::ERROR_CODE_200, parent::ERROR_EMPTY, $response);
+			}
 			$this->send_error_response( $e->getMessage() );
 		}
 		
@@ -81,6 +89,10 @@ class ProfileServicesController extends ApiAppController {
 			$this->send_response(parent::ERROR_CODE_200, parent::ERROR_OK, $response);
 			 
 		}catch(Exception $e){
+			if( !empty($_REQUEST['reqType']) && $_REQUEST['reqType'] == 'ac_ajax' ) {
+				$response['Colleges'] = array();
+				$this->send_response(parent::ERROR_CODE_200, parent::ERROR_EMPTY, $response);
+			}
 			$this->send_error_response( $e->getMessage() );
 		}
 		
@@ -104,6 +116,10 @@ class ProfileServicesController extends ApiAppController {
 			$this->send_response(parent::ERROR_CODE_200, parent::ERROR_OK, $response);
 			 
 		}catch(Exception $e){
+			if( !empty($_REQUEST['reqType']) && $_REQUEST['reqType'] == 'ac_ajax' ) {
+				$response['Occupations'] = array();
+				$this->send_response(parent::ERROR_CODE_200, parent::ERROR_EMPTY, $response);
+			}
 			$this->send_error_response( $e->getMessage() );
 		}
 		
@@ -126,7 +142,11 @@ class ProfileServicesController extends ApiAppController {
 			
 			$this->send_response(parent::ERROR_CODE_200, parent::ERROR_OK, $response);
 			 
-		}catch(Exception $e){
+		}catch(Exception $e) {
+			if( !empty($_REQUEST['reqType']) && $_REQUEST['reqType'] == 'ac_ajax' ) {
+				$response['Skills'] = array();
+				$this->send_response(parent::ERROR_CODE_200, parent::ERROR_EMPTY, $response);
+			}
 			$this->send_error_response( $e->getMessage() );
 		}
 		

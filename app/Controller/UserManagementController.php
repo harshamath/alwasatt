@@ -5,9 +5,10 @@ class UserManagementController extends AppController {
     var $components = array(/* 'Auth', */ 'Session', 'Paginator', 'ManageUser');
     var $uses = array('User');
     var $layout = 'admin';
+	var $temp_member = '694a4765-5fe3-40f6-bfda-f4b26cb297be';
 
     public function beforeFilter() {
-        	$this->Auth->allow('admin_user_listing', 'admin_new_user', 'admin_save_user', 'admin_user_education', 'list_degrees');	
+        $this->Auth->allow('admin_user_listing', 'admin_new_user', 'admin_save_user', 'admin_user_education', 'list_degrees');	
     }
 
     public function admin_user_listing() {
@@ -150,10 +151,40 @@ class UserManagementController extends AppController {
         die('SAVE USER');
     }
 
-	public function admin_user_education($member_uuid=NULL){
+	public function admin_user_education($member_uuid=NULL) {
+		
+		$member_uuid = $this->temp_member;
 		if( empty($member_uuid) || !($memberId = $this->User->getIdByUuid($member_uuid)) ) {
 			$this->redirect('/admin/user_management/user_listing?error=valid_member_id_required');	
 		}
+		
+		$this->set('member_uuid', $member_uuid);
+		
+		$subTitle = 'User Education Profile';
+		$this->set('subTitle', $subTitle);
+		
+		App::import('Model', array('UserEducation'));
+		$userEducationObj = new UserEducation();
+		
+		if( !empty($_POST) ) {
+			$newUserEducation = array(
+				'uuid' => String::uuid(),
+				'user_id' => $memberId,
+				'education_major_id' => $_POST['edu_major_id'],
+				'education_degree_id' => $_POST['edu_degree_id'],
+				'education_institute_id' => $_POST['edu_univ_id'],
+				'start_date' => $_POST['eduStartYear'],
+				'end_date' => $_POST['eduEndYear'],
+				'is_completed' => $_POST['edu_under_progress'] == '1' ? 0 : 1,
+				'active' => 1,
+				'created_by' => 1		// to be changed based on auth later.
+			);
+			
+			$userEducationObj->save($newUserEducation);
+		}
+		
+		$userEducation = $userEducationObj->findBYUserId($memberId);
+		$this->set('userEducations', $userEducation);
 	}
 
 }

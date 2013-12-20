@@ -13,6 +13,7 @@ class ApiAppController extends Controller {
 	const ERROR_SUCCESS = 'SUCCESS';
 	const ERROR_OK = 'OK';
 	const ERROR_ERROR = 'ERROR';
+	const ERROR_EMPTY = 'NO RESULT';
 	
 	private $error_log;
 	private $error_arch_log;

@@ -3,15 +3,25 @@
 	Created By: WaQaR
 */
 
+.fltL{ float:left !important; }
+
 .pl10{ padding-left: 10px !important; }
 .pr10{ padding-right: 10px !important; }
 .mt5{ margin-top: 5px !important; }
+.ml5{ margin-left: 5px !important; }
+.ml10{ margin-left: 10px !important; }
+.ml20{ margin-left: 20px !important; }
+.neg_mt10 {margin-top: -10px !important;}
+.neg_mt5 {margin-top: -5px !important;}
+
 .w95{ width: 95% !important; }
 .w_40{ width: 40px !important; }
 .w_120{width: 120px !important; }
 .w_150{width: 150px !important; }
 .w_165{width: 165px !important; }
 .w_210{width: 210px !important; }
+
+.minH200{min-height: 200px !important;}
 
 .fieldTitle{ float: left; margin-top: 5px; width: 180px; }
 .sectionTitle{ float: left; width: 90%; margin-top: 10px; margin-bottom: 10px; text-decoration:underline; text-transform:uppercase; clear: both; }
@@ -24,3 +34,7 @@
 .content li{border-left: 1px solid #DCDCDC; border-right: 1px solid #DCDCDC; float: left; text-align: left; margin-left: -1px; padding: 7px 10px !important; }
 .content li:first{ margin-left: 0px; }
 ul.bg_light{background: none repeat scroll 0 0 #FFFFFF; }
+
+.ui-autocomplete-loading { background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat; } 
+.edu_fields { width: 300px; margin-left: 15px; }
+.date_year { width: 75px; }
