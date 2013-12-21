@@ -375,11 +375,14 @@ div#login_page .col-lg-12 .col-lg-7 .form-horizontal .form-group label.dot_adjus
 }
 .btnc {
 	color: #FFF;
-	background: #428BCA;
-	border-color: #357EBD;
 	line-height: 17px;
 	border:0px;
 	font-size: 14px;
+	padding: 5px 10px;
+	border-radius: 3px;
+}
+.btnc:hover {
+	color: #FFF;
 }
 .usermeta li {
 	padding: 0px;
@@ -628,7 +631,561 @@ td.lable {
 .thirtypercent {
 	width: 30%;
 }
+.suserinfo {
+	margin: 20px 10px;
+}
+.bbox {
+	float: left;
+	width: 100%;
+	background: #FFF;
+	border: 1px solid #E1E0E0;
+	border-radius: 3px;
+}
+.bbox.nobg {
+	background: none;
+	border:0px;
+}
+.img-circle-profile {
+	float: left;
+	margin-right: 10px;
+	height: 70px;
+	width: 70px;
+	border: #E1E1E1 2px solid;
+	border-radius: 50%;
+}
+.img-circle-friend {
+	float: left;
+	margin-right: 10px;
+	height: 35px;
+	width: 35px;
+	border: #E1E1E1 2px solid;
+	border-radius: 50%;
+	margin-bottom: 25px;
+}
+.susername, .susername:hover {
+	font-size: 16px;
+	color: #353535;
+	font-weight: bold;
+}
+.suseragency {
+	color: #353535;
+}
+.suserhead {
+	padding: 7px 10px;
+	background: url(../images/heading_bg.jpg);
+	text-shadow: 1px 1px #09599E;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 16px;
+}
+.suserhead span {
+	float: right;
+	text-shadow: 0px;
+	color: #FFF;
+	font-weight: normal;
+	font-size: 13px;
+	cursor: pointer;
+}
+.susernav li {
+	float: left;
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+.susernav li a {
+	margin: 0px;
+	padding: 7px 10px;
+	background: none;
+	border:0px;
+	font-size: 13px;
+	color:#1c6b99;
+	font-weight: bold;
+	border-bottom: 1px solid #d6d6d6;
+	border-radius: 0px;
+}
+.susernav li a .count {
+	float: right;
+}
+.susernav li .glyphicon {
+	margin-right: 5px;
+	color: #a3a3a3;
+	font-size: 13px;
+	font-weight: bold;
+}
+.susernav li a:hover {
+	background: none;
+	color: #353535;
+}
+.suserjob {
+	padding: 0px 10px;
+	margin: 20px 0px;
+	border-bottom: 1px solid #d6d6d6;
+	color:#1c6b99;
+}
+.suserjob h3 {
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+.suserjob .badge {
+	background-color: red;
+}
+.suserjob.last, .susercompany.last, .job-interest.last {
+	margin-bottom: 0px;
+}
+.myconnection.last {
+	margin-bottom: 0px;
+	border-bottom: 0px;
+}
+.susercompany {
+	padding: 0px 10px;
+	margin: 20px 0px;
+	border-bottom: 1px solid #d6d6d6;
+	color:#353535;
+}
+.susercompany p {
+	margin-bottom: 0px;
+}
+.susercomp li {
+	padding: 0px;
+	margin-bottom: 10px;
+}
+.susercomp li a {
+	margin: 0px;
+	padding: 0px;
+	border:0px;
+	background: none;
+	color: #FFF;
+	min-width: 30px;
+	height: 30px;
+	border-radius: 50px;
+	font-size: 20px;
+	text-align: center;
+}
+.susercomp li a.green {
+	background: #59B813;
+}
+.susercomp li a.yellow {
+	background: #E2AB05;
+}
+.susercomp li a.link {
+	background: none;
+	color: #1c6b99;
+	font-size: 12px;
+	line-height: 35px;
+}
+.susercomp li a:hover {
+	text-decoration: none;
+}
+.side-heading {
+	color: #353535;
+	font-weight: bold;
+	margin: 0px;
+	font-size: 16px;
+}
+.sfriendinfo {
+	margin: 10px 0px;
+	padding: 10px;
+	border-radius: 5px;
+}
+.sfriendinfo:hover {
+	background: #e6e6e6;
+}
+.sfriendinfo .susername {
+	color: #1c6b99;
+	font-size: 14px;
+}
+.sfriendinfo .btnc {
+	font-size: 12px;
+}
+.sfriendinfo .delete {
+	float: right;
+	background: url(../images/ico_delete.png) no-repeat;
+	width: 11px;
+	height: 11px;
+	display: none;
+}
+.sfriendinfo:hover .delete {
+	display: block;
+}
+.mt10 {
+	margin-top: 10px;
+}
+.brdpad {
+	padding: 10px;
+	border-bottom: 1px solid #d6d6d6;
+}
+.job-interest {
+	padding: 0px 10px;
+	margin: 20px 0px;
+	border-bottom: 1px solid #D6D6D6;
+	color: #353535;
+}
+.job-interest p span {
+	color: #939393;
+	font-weight: bold;
+}
+.job-interest p a {
+	color: #1c6b99;
+	font-weight: bold;
+}
+.job-interest p .timeleft {
+	float: right;
+	font-size: 10px;
+}
+.connTabs li {
+	padding: 0px;
+	margin: 0px;
+	width: 50%;
+}
+.connTabs li a {
+	width: 100%;
+	background: none;
+	border:0px;
+	text-align: center;
+	border-radius: 0px;
+	font-weight: bold;
+}
+.connTabs li.active {
+	border:0px !important;
+}
+.connTabs li.active a {
+	background: #2685BB;
+	border:0px !important;
+	color: #FFF;
+}
+.connTabs li a:hover, .connTabs li.active a:hover {
+	background: #2685BB;
+	cursor: pointer;
+	color: #FFF;
+}
+.tab-pane.active {
+	border:0px !important;
+}
+.brdszero {
+	border-radius: 0px;
+}
+.myconnection {
+	float: left;
+	width: 100%;
+	padding: 20px 20px 10px 20px;
+	border-bottom: 1px solid #D6D6D6;
+}
+.myconnection .contactdetails {
+	visibility: hidden;
+}
+.myconnection:hover {
+	background: #f5f5f5;
+}
+.myconnection:hover .contactdetails {
+	visibility: visible;
+}
+.contactdetails a {
+	cursor: pointer;
+}
+.connectiondetails {
+	float: left;
+	width: 100%;
+	margin: 15px 0px;
+	display: none;
+}
+.myconnection .susername {
+	color: #1C6B99;
+	font-size: 14px;
+}
+.vmcenter {
+	float: left;
+	width: 100%;
+	text-align: center;
+	margin: 15px 0px;
+}
+.greenhead {
+	color: #35A003;
+	font-size: 24px;
+	font-weight: bold;
+	padding-bottom: 15px;
+	text-align: center;
+	border-bottom: 1px solid #F0F0F0;
+}
+.ittalic {
+	color: #353535;
+	font-style: italic;
+}
+.btnR {
+	display: inline-block;
+	padding: 10px 20px;
+	margin-bottom: 0;
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 1.428571429;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid rgba(0, 0, 0, 0);
+	border-radius: 4px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	font-weight: bold;
+}
+.btnRSm {
+	display: inline-block;
+	margin-top: 10px;
+	padding: 3px 15px;
+	margin-bottom: 0;
+	font-size: 12px;
+	font-weight: normal;
+	line-height: 1.428571429;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid rgba(0, 0, 0, 0);
+	border-radius: 4px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+	font-weight: bold;
+}
+.gtxt {
+	color: #3b7cb4;
+}
+.to-left {
+	text-align: left;
+	padding-left: 25px;
+}
+.wizard-data {
+	padding: 15px 25px 0px 25px;
+	color: #353535;
+}
+p.large {
+	font-size: 16px;
+}
+.wizard-data .panal {
+	float: left;
+	width: 100%;
+	margin: 25px 0px;
+	border-bottom: 1px solid #f1f1f1;
+}
+.m170 {
+	min-height: 170px;
+}
+.mTB20 {
+	margin: 20px 0px;
+}
+.growNet1B {
+	float: left;
+	width: 100%;
+	padding: 25px 20px 10px 20px;
+	border-bottom: 1px solid #DDD;
+}
+.growNet1B .side-heading {
+	margin-bottom: 15px;
+}
+.findBySocial {
+	float: left;
+	width: 100%;
+	margin: 10px 0px;
+}
+.suggestedEmail {
+	float: left;
+	width: 100%;
+	margin: 5px 0px;
+}
+.suggestedEmail .susername {
+	font-size: 14px;
+}
+.findBySocial .btnc {
+	margin-top: 12px;
+}
+.invByEmail {
+	float: left;
+	width: 100%;
+	padding: 25px 20px 10px 20px;
+}
+.alreadyAssignedUser {
+	float: left;
+	width: 100%;
+	margin: 10px 0px;
+	padding: 10px;
+	background: #f5f5f5;
+	color: #353535;
+	border-radius: 2px;
+}
+.alreadyAssignedUser .htitle {
+	padding-bottom: 5px;
+	font-size: 14px;
+	border-bottom: 1px solid #FFF;
+}
+.alreadyAssignedUser .suserinfo .susername {
+	color: #1C6B99;
+	font-size: 14px;
+}
+.removeBtn {
+	display: block;
+	width: 14px;
+	height: 14px;
+	background: url(../images/lightblue.png) no-repeat;
+}
+.suggestedEmail .removeBtn {
+	visibility: hidden;
+}
+.suggestedEmail:hover .removeBtn {
+	visibility: visible;
+}
+.m20 {
+	margin: 20px;
+}
+.paddzero {
+	padding: 0px;
+}
+.paddzero.first {
+	padding-left: 15px;
+}
+.paddzero.last {
+	padding-right: 15px;
+}
+.mb15 {
+	margin-bottom: 15px;
+}
+.looking-for h4 {
+	font-weight: bold;
+	color: #353535;
+	padding: 0px 10px 10px 10px;
+	border-bottom: 1px solid #DDD;
+	margin-bottom: 0px;
+}
+.look-for {
+	padding: 25px;
+	text-align: center;
+	border-right: 1px solid #DDD;
+}
+.look-for:hover {
+	cursor: pointer;
+	background: #f7f7f7;
+}
+.look-for p {
+	font-size: 14px;
+	font-weight: bold;
+	color: #245eaf;
+}
+.look-for.last {
+	border-right: 0px;
+}
+.latest-activity-title {
+	float: left;
+	width: 100%;
+	font-size: 14px;
+	font-weight: bold;
+	color: #353535;
+	padding: 10px;
+	border-bottom: 1px solid #DDD;
+}
+.profile-bar {
+	text-align: center;
+}
+.profile-bar-title {
+	float: left;
+	width: 100%;
+	font-size: 13px;
+	font-weight: bold;
+	color: #353535;
+	text-align: left;
+	margin-bottom: 20px;
+}
+.knob {
+	margin-bottom: 20px;
+}
+.latest-activity {
+	float: left;
+	width: 100%;
+	padding: 10px 30px 10px 10px;
+	border-bottom: 1px solid #DDD;
+	margin-bottom: 10px;
+}
+.img-circle-act {
+	float: left;
+	margin-right: 10px;
+	height: 35px;
+	width: 35px;
+	border: #E1E1E1 2px solid;
+	border-radius: 50%;
+}
+.latest-activity .companyname {
+	float: left;
+	margin-right: 5px;
+}
+.latest-activity .actCats, .latest-activity .actCats:hover {
+	text-decoration: none;
+	font-style: italic;
+	font-size: 12px;
+	color: #BBB;
+}
+.latest-activity .actText {
+	color: #353535;
+	margin: 0px;
+}
+.viewmore {
+	text-align: center;
+}
+.latest-activity.user {
+	background: url(../images/bg4.png) no-repeat right 10px top 10px;
+}
+.latest-activity.greenIcon {
+	background: url(../images/bg5.png) no-repeat right 10px top 10px;
+}
+.latest-activity.redIcon {
+	background: url(../images/bg6.png) no-repeat right 10px top 10px;
+}
+.mt20 {
+	margin-top: 20px;
+}
+.profile-options {
+	margin: 0px;
+	padding: 0px;
+}
+.profile-options li {
+	float: left;
+	width: 100%;
+	margin: 8px 0px;
+	padding: 0px;
+	background: url(../images/ico_plus.png) top 3px left no-repeat;
+}
+.profile-options li a {
+	margin: 0px 0px 0px 25px;
+	padding: 0px;
+	background: none;
+	border:0px;
+	text-align: left;
+	font-size: 14px;
+	color: #245eaf;
+	font-weight: normal;
+}
+.profile-options li a span {
+	font-size: 14px;
+	color: #16b437;
+	font-weight: bold;
+}
+.profile-options li a:hover {
+	background: none;
+	border:0px;
+	color: #353535;
+	text-decoration: none;
+}
+.mbzero {
+	margin-bottom: 0px;
+}
 @media (max-width: 768px) {
+	.paddzero {
+		padding: 0px 15px;
+	}
 
 	.col-xs-12 {
 		margin-bottom: 10px;

@@ -15,7 +15,7 @@ class UsersController extends AppController {
 
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->Auth->allow(array("signup", "signup_facebook", "logout", "admin_index", "admin_edit", "admin_delete", "admin_view", "admin_add", "forgot_password", "reset_password_token"));
+        $this->Auth->allow(array("signup", "signup_facebook", "company_signup", "logout", "admin_index", "admin_edit", "admin_delete", "admin_view", "admin_add", "forgot_password", "reset_password_token"));
     }
 
     /**
@@ -206,7 +206,7 @@ class UsersController extends AppController {
             } else {
                 unset($this->request->data['confirm_password']);
                 $this->request->data['password'] = $this->Auth->password($this->request->data['password']);
-                $this->request->data['User']['uuid'] = String::uuid();
+                $this->request->data['uuid'] = String::uuid();
                 $this->User->create();
                 if ($this->User->save($this->request->data)) {
                     $id = $this->User->id;
@@ -431,6 +431,46 @@ class UsersController extends AppController {
         $user = $this->User->read(null, $id);
         //$countries = $this->User->Country->find('list');
         $this->set(compact('user'));
+    }
+    
+    public function company_wizard() {
+        if ($this->request->is('post')) {
+            if ($this->Company->save($this->request->data)) {
+                $this->Session->setFlash('Message successfully sent.');
+                $this->redirect(array('action' => 'compose'));
+            }
+        }
+
+        $this->set('industryList', ClassRegistry::init('Industry')->find('all'));
+        $this->set('countryList', ClassRegistry::init('Country')->find('all'));
+        $this->set('cityList', ClassRegistry::init('City')->find('all'));
+    }
+    
+    public function company_signup() {
+        if ($this->request->is('post')) {
+            $conditions = array(
+                'User.email' => $this->request->data['email']
+            );
+
+            if ($this->request->data['password'] != $this->request->data['confirm_password']) {
+                $this->Session->setFlash(__('Password mismatched. Please, try again.'));
+            } elseif ($this->User->hasAny($conditions)) {
+                $this->Session->setFlash(__('Same email address already exist. Please, try again.'));
+            } else {
+                unset($this->request->data['confirm_password']);
+                $this->request->data['password'] = $this->Auth->password($this->request->data['password']);
+                $this->request->data['uuid'] = String::uuid();
+                $this->User->create();
+                if ($this->User->save($this->request->data)) {
+                    $id = $this->User->id;
+                    $this->request->data['User'] = array_merge($this->request->data, array('id' => $id));
+                    $this->Auth->login($this->request->data['User']);
+                    return $this->redirect(array('controller' => 'users', 'action' => 'company_wizard'));
+                } else {
+                    $this->Session->setFlash(__('The company details could not be saved. Please, try again.'));
+                }
+            }
+        }
     }
 
 }
