@@ -23,7 +23,12 @@
 	Router::connect('/edu_degrees', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'list_degrees'));
 	Router::connect('/edu_majors', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'major_fields_of_study'));
 	Router::connect('/search_college', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'college_search'));
+	Router::connect('/search_companies', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'companies'));
 	Router::connect('/occupations', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'occupations'));
 	Router::connect('/skills', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'skills'));
+	
+	Router::connect('/rem_user_skill/*', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'remove_user_skill'));
+	Router::connect('/add_user_skill', array('plugin' => 'Api', 'controller' => 'ProfileServices', 'action' => 'add_user_skill'));
+	
 	
 ?>

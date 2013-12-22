@@ -37,7 +37,11 @@ class AppController extends Controller {
     public function beforeFilter() {
         // set cookie options
         $this->Cookie->httpOnly = true;
-
+		
+		if(!$this->Auth->loggedIn() && !empty($this->params['action']) && $this->params['action'] == 'admin_login') {
+			$this->redirect('/users/login');	
+		}
+		
         if (!$this->Auth->loggedIn() && $this->Cookie->read('rememberMe')) {
             $cookie = $this->Cookie->read('rememberMe');
 
@@ -52,6 +56,21 @@ class AppController extends Controller {
             if ($user && !$this->Auth->login($user['User'])) {
                 $this->redirect('/users/logout'); // destroy session & cookie
             }
-        }
+        } if( $this->Auth->loggedIn() ) {
+			
+			if(RESTRICT_ADMIN_ACCESS && $this->params['admin'] == true || $this->params['admin'] == 'true' ) {
+				$user_type = $this->Auth->user('user_type_id');
+				$adminTypes = ClassRegistry::init('UserType')->getMasterAdminTypeId();	
+				
+				if( !in_array($user_type, $adminTypes) ) {
+					$ref = $this->referer();
+					$ref = !empty($ref) ? $ref : '/users/login';
+					$ref .= '?error=UNAUTHORIZED_ACCESS';
+					
+					$this->redirect($ref);
+				}
+			}
+			
+		}
     }
 }

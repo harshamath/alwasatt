@@ -9,8 +9,7 @@
     <div class="right_section admin_role_bg w95">
 		<ul class="heading">
 			<li class="pl10 pr10 w_40"> Sr. # </li>
-            <li class="pl10 pr10 w_150"> First Name </li>
-            <li class="pl10 pr10 w_150"> Last Name </li>
+            <li class="pl10 pr10 w_210"> Member Name </li>
             <li class="pl10 pr10 w_150"> Email Id </li>
             <li class="pl10 pr10 w_165"> Category </li>
             <li class="pl10 pr10 w_210"> Industry </li>
@@ -25,8 +24,10 @@
 		?>
         	<ul class='content'>
 				<li class="pl10 pr10 w_40"> &nbsp; </li>
-                <li class="pl10 pr10 w_150"> <?=$user['User']['first_name']?> </li>
-                <li class="pl10 pr10 w_150"> <?=$user['User']['last_name']?> </li>
+                <li class="pl10 pr10 w_210">
+                	<? $member_url = $this->base.'/admin/user_management/new_user/'.$user['User']['uuid']; ?> 
+					<a href='<?=$member_url?>' target="_self"><?=$user['User']['first_name']?>&nbsp;<?=$user['User']['last_name']?></a>
+				</li>
                 <li class="pl10 pr10 w_150"> <?=$user['User']['email']?> </li>
                 <li class="pl10 pr10 w_165"> <?=$user['User']['user_category']?> </li>
                 <li class="pl10 pr10 w_210"> <?=$user['User']['user_industry']?> </li>
@@ -36,6 +37,8 @@
         </div>
     	<div class="clr"></div>
     </div>
+    
+    
     <div class="clr"></div>
 </div> 
 

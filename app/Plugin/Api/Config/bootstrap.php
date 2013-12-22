@@ -307,4 +307,18 @@
 		}
 	}
 	
+	function create_months_array() {
+		$months = array();
+		for($x=0; $x<12; $x++)
+		{
+			$month = mktime(0, 0, 0, date("m")+$x, date("d"),  date("Y"));
+			$key = date('n', $month);
+			$monthname = date('F', $month);
+			$months[$key] = $monthname;
+		}
+		
+		ksort($months);
+		return $months;
+	}
+	
 ?>

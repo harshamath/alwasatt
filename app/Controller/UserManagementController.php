@@ -5,10 +5,11 @@ class UserManagementController extends AppController {
     var $components = array(/* 'Auth', */ 'Session', 'Paginator', 'ManageUser');
     var $uses = array('User');
     var $layout = 'admin';
-	var $temp_member = '694a4765-5fe3-40f6-bfda-f4b26cb297be';
+	//var $temp_member = '694a4765-5fe3-40f6-bfda-f4b26cb297be';
 
     public function beforeFilter() {
-        $this->Auth->allow('admin_user_listing', 'admin_new_user', 'admin_save_user', 'admin_user_education', 'list_degrees');	
+		parent::beforeFilter();
+    //    $this->Auth->allow('admin_user_listing', 'admin_new_user', 'admin_save_user', 'admin_user_education', 'list_degrees');	
     }
 
     public function admin_user_listing() {
@@ -102,6 +103,8 @@ class UserManagementController extends AppController {
                 $this->set('user_data', $data);
                 $subTitle = 'Edit User';
             }
+			
+			$this->set('user_uuid', $user_uuid);
         }
 
         $this->set('subTitle', $subTitle);
@@ -153,7 +156,6 @@ class UserManagementController extends AppController {
 
 	public function admin_user_education($member_uuid=NULL) {
 		
-		$member_uuid = $this->temp_member;
 		if( empty($member_uuid) || !($memberId = $this->User->getIdByUuid($member_uuid)) ) {
 			$this->redirect('/admin/user_management/user_listing?error=valid_member_id_required');	
 		}
@@ -186,7 +188,119 @@ class UserManagementController extends AppController {
 		$userEducation = $userEducationObj->findBYUserId($memberId);
 		$this->set('userEducations', $userEducation);
 	}
+	
+	public function admin_user_experience($member_uuid=NULL){
+		
+		if( empty($member_uuid) || !($memberId = $this->User->getIdByUuid($member_uuid)) ) {
+			$this->redirect('/admin/user_management/user_listing?error=valid_member_id_required');	
+		}
+		
+		$this->set('member_uuid', $member_uuid);
+		
+		$subTitle = 'User Career Profile';
+		$this->set('subTitle', $subTitle);
+		
+		App::import('Model', array('UserExperience'));
+		$userExperienceObj = new UserExperience();
+		
+		if( !empty($_POST) ) {
+			
+			$start_date = '00';
+			if( !empty($_POST['exp_start_month']) ) {
+				$start_date = $_POST['exp_start_month'].'-'.$start_date;
+				if($_POST['exp_start_month'] < 10){
+					$start_date = '0'.$start_date;	
+				}
+			} else {
+				$start_date = '00-'.$start_date;	
+			}
+			
+			if( !empty($_POST['exp_start_year']) ) {
+				$start_date = $_POST['exp_start_year'].'-'.$start_date;
+			} else {
+				$start_date = NULL;	
+			}
+			
+			$end_date = '00';
+			if( !empty($_POST['exp_end_month']) ) {
+				$end_date = $_POST['exp_end_month'].'-'.$end_date;
+				if($_POST['exp_end_month'] < 10){
+					$end_date = '0'.$end_date;	
+				}
+			} else {
+				$end_date = '00-'.$end_date;	
+			}
+			
+			if( !empty($_POST['exp_end_year']) ) {
+				$end_date = $_POST['exp_end_year'].'-'.$end_date;
+			} else {
+				$end_date = NULL;	
+			}
+			
+			$newUserExperience = array(
+				'uuid' => String::uuid(),
+				'user_id' => $memberId,
+				'occupation_id' => $_POST['exp_job_id'],
+				'organization_id' => $_POST['exp_company_id'],
+				'start_date' => $start_date,
+				'end_date' => $end_date,
+			//	'currently_employed' => $_POST['is_employed'],
+				'active' => 1,
+				'created_by' => 1		// to be changed based on auth later.
+			);
+			
+			$userExperienceObj->create();
+			$userExperienceObj->save($newUserExperience);
+		}
+		
+		$months = create_months_array();
+		$this->set('months', $months);
+		
+		$userExperience = $userExperienceObj->findBYUserId($memberId);
+		if( !empty($userExperience) ) {
+			foreach($userExperience as $exp => $experience){
+				$start_date = 	$experience['UserExperience']['start_date'];
+				if( !empty($start_date) && $start_date != '0000-00-00' ) {
+					$sd_parts = explode('-', $start_date);
+					$sd_mon = intval($sd_parts[1]);
+					
+					$userExperience[$exp]['UserExperience']['start_month'] = in_array( $sd_mon, array_keys($months) ) ? $sd_mon : NULL;
+					$userExperience[$exp]['UserExperience']['start_month_name'] = in_array( $sd_mon, array_keys($months) ) ? $months[$sd_mon] : NULL;
+					$userExperience[$exp]['UserExperience']['start_year'] = intval($sd_parts[0]);
+				
+				}
+				
+				$end_date = $experience['UserExperience']['end_date'];
+				if( !empty($end_date) && $end_date != '0000-00-00' ) {
+					$ed_parts = explode('-', $end_date);
+					$ed_mon = intval($ed_parts[1]);
+					
+					$userExperience[$exp]['UserExperience']['end_month'] = in_array( $ed_mon, array_keys($months) ) ? $ed_mon : NULL;
+					$userExperience[$exp]['UserExperience']['end_month_name'] = in_array( $ed_mon, array_keys($months) ) ? $months[$ed_mon] : NULL;
+					$userExperience[$exp]['UserExperience']['end_year'] = intval($ed_parts[0]);
+				
+				}
+			}	
+		}
+		
+		$this->set('userExperiences', $userExperience);
+	}
+	
+	public function admin_user_skills($member_uuid=NULL){
+		
+		if( empty($member_uuid) || !($memberId = $this->User->getIdByUuid($member_uuid)) ) {
+			$this->redirect('/admin/user_management/user_listing?error=valid_member_id_required');	
+		}
+		
+		App::import('Model', array('UserSkill'));
+		$userSkillObj = new UserSkill();
+		
+		$userSkills = $userSkillObj->findBYUserId($memberId);
 
+		$this->set('userSkills', $userSkills);
+		$this->set('member_uuid', $member_uuid);
+	}
+	
 }
 
 ?>

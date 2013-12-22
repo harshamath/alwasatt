@@ -13,10 +13,15 @@ class Occupation extends AppModel {
 		)
 	);
 	
-	public function findByKeyword($keyword=NULL){
+	public function findByKeyword($keyword=NULL, $findType='all'){
 		
 		if( empty($keyword) || !is_string($keyword) ) {
 			throw new Exception('SEARCH KEYWORD IS REQUIRED');		
+		}
+		
+		$findTypes = array( 'first', 'all', 'list', 'count' );
+		if( empty($findType) || !in_array($findType, $findTypes) ) {
+			$findType = 'all';	
 		}
 		
 		$keyword = trim($keyword);
@@ -43,7 +48,7 @@ class Occupation extends AppModel {
 		$recursion = $this->recursive;
 		$this->recursive = -1;
 		
-		$occupations = $this->find( 'list', array(
+		$occupations = $this->find( $findType, array(
 			'conditions' => $conditions,
 			'fields' => array('id', 'name'),
 			'order' => 'name asc',

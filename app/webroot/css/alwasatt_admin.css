@@ -20,8 +20,10 @@
 .w_150{width: 150px !important; }
 .w_165{width: 165px !important; }
 .w_210{width: 210px !important; }
+.w_270{width: 270px !important; }
 
 .minH200{min-height: 200px !important;}
+.minH40{min-height: 40px !important;}
 
 .fieldTitle{ float: left; margin-top: 5px; width: 180px; }
 .sectionTitle{ float: left; width: 90%; margin-top: 10px; margin-bottom: 10px; text-decoration:underline; text-transform:uppercase; clear: both; }
@@ -36,5 +38,26 @@
 ul.bg_light{background: none repeat scroll 0 0 #FFFFFF; }
 
 .ui-autocomplete-loading { background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat; } 
-.edu_fields { width: 300px; margin-left: 15px; }
+.edu_fields, .exp_fields { width: 300px; margin-left: 15px; }
 .date_year { width: 75px; }
+.date_month { width: 100px; }
+
+ul#manage_user_opts li a { width: 270px !important; font-size:19px; }
+
+.unendorsed-skills-list {border: 1px solid #D0D0D0;border-radius: 3px;margin-bottom: 0;margin-top: 10px;
+box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5) inset;}
+
+.unendorsed-skills-list .endorse-item-name .value:hover { color: #5A5A5A; }
+.skills-list { min-height: 25px; padding: 5px; position: relative; }
+ol.skills-list{ margin: 3px 10px; }
+.skills-list .skill-container-item { display: inline-block; margin: 3px 6px 3px 0; position: relative; vertical-align: middle; }
+.skills-list ul:after, .skills-list li:after { clear: both; content: " "; display: block; height: 0; overflow: hidden; visibility: hidden; }
+.skills-list .endorse-item-name.jellybean {color: #333333;float: left;font-size: 13px;height: 24px;line-height: 24px;}
+.skills-list .jellybean {background: none repeat scroll 0 0 #F0F0F0;border-radius: 3px;color: #5A5A5A;cursor: pointer;display: inline-block;
+font-size: 13px;left: 0;position: static;padding: 0 7px;vertical-align: bottom;}
+.endorse-item-name {background-color: #F0F0F0;border-bottom: 1px solid #DDDDDD;border-radius: 5px;border-right: 1px solid #DDDDDD;
+color: #333333;font-size: 13px;font-weight: normal;line-height: 17px;padding: 0 13px;position: relative;}
+.skills-list .endorse-item-name.jellybean .value {display: inline-block;max-width: 150px;overflow: hidden;padding-left: 0;
+padding-right: 7px;text-overflow: ellipsis;vertical-align: top;white-space: nowrap;width: auto; }
+.skills-list .endorse-item-name.jellybean .remove {color: #8A8A8A;font-size: 20px;font-weight: normal;padding-left: 0;
+padding-right: 0;position: relative;}

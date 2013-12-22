@@ -133,6 +133,7 @@ class UsersController extends AppController {
                 'User.email' => $this->request->data['User']['username'],
                 'User.password' => $this->Auth->password($this->request->data['User']['password'])
             );
+			
             if ($this->User->hasAny($conditions)) {
                 if (isset($this->request->data['User']['rememberMe']) && $this->request->data['User']['rememberMe'] == 1) {
                     // After what time frame should the cookie expire
@@ -147,7 +148,10 @@ class UsersController extends AppController {
                     $this->Cookie->write('rememberMe', $this->request->data['User'], true, $cookieTime);
                 }
 
-                $userDetail = $this->User->find('first', $conditions);
+                $userDetail = $this->User->find('first', array(
+					'conditions' => $conditions
+				));
+				
                 $this->Auth->login($userDetail['User']);
                 return $this->redirect(array('controller' => 'users', 'action' => 'profile'));
             } else {

@@ -13,10 +13,15 @@ class Skill extends AppModel {
 		)
 	);
 	
-	public function findByKeyword($keyword=NULL){
+	public function findByKeyword($keyword=NULL, $findType='all', $options=array() ){
 		
 		if( empty($keyword) || !is_string($keyword) ) {
 			throw new Exception('SEARCH KEYWORD IS REQUIRED');		
+		}
+		
+		$findTypes = array( 'first', 'all', 'list', 'count' );
+		if( empty($findType) || !in_array($findType, $findTypes) ) {
+			$findType = 'all';	
 		}
 		
 		$keyword = trim($keyword);
@@ -38,12 +43,20 @@ class Skill extends AppModel {
 			$kw_cond
 		);
 		
+		if( !empty($options) && !empty($options['custom_conditions']) ) {
+			if( is_array($options['custom_conditions']) ) {
+				foreach($options['custom_conditions'] as $cond_key => $cond_data){
+					$conditions[$cond_key] = $cond_data;	
+				}	
+			}	
+		}
+				
 		$result_limit = 20;
 		
 		$recursion = $this->recursive;
 		$this->recursive = -1;
 		
-		$skills = $this->find( 'list', array(
+		$skills = $this->find( $findType, array(
 			'conditions' => $conditions,
 			'fields' => array('id', 'name'),
 			'order' => 'name asc',

@@ -27,6 +27,22 @@ class ManageUserComponent extends Component {
 		return $user_type;
 	}
 	
+	public function getAdminTypeId() {
+		App::import('model', array('UserType') );
+		$userTypeObj = new UserType();
+		
+		$user_type = $userTypeObj->field( 'id', array('user_types' => 'web_admin'));	
+		return $user_type;
+	}
+	
+	public function getMasterAdminTypeId() {
+		App::import('model', array('UserType') );
+		$userTypeObj = new UserType();
+		
+		$user_type = $userTypeObj->field( 'id', array('user_types IN ' => array('web_admin', 'master_admin')));	
+		return $user_type;
+	}
+	
 	public function getUserData($userId=NULL){
 		if( empty($userId) ){
 			return NULL;	

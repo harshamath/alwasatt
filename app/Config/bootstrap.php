@@ -118,6 +118,8 @@ CakeLog::config('error', array(
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
 
+define('RESTRICT_ADMIN_ACCESS', false);
+
 function MDY2YMD( $date ,$join = '-') {
 	if( empty($date) ) {
 		return NULL;	

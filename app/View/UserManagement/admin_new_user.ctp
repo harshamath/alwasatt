@@ -166,6 +166,18 @@
         </form>
         <div class="clr"></div>
     </div>
+	
+    <? if( !empty($user_uuid) ) { ?>     
+    <div class="right_section admin_role_bg ml10 w_270">
+    
+        <ul id="manage_user_opts">
+            <li> <a href="<?=$this->base?>/admin/user_management/user_education/<?=$user_uuid?>"> Member Education </a> </li>
+            <li> <a href="<?=$this->base?>/admin/user_management/user_experience/<?=$user_uuid?>"> Member Experience </a> </li>
+            <li> <a href="<?=$this->base?>/admin/user_management/user_skills/<?=$user_uuid?>"> Member Skills </a> </li>
+        </ul>
+    
+    </div>
+    <? } ?>
     <div class="clr"></div>
 </div>
 
