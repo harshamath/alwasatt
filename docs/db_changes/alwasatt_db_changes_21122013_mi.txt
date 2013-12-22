@@ -1,0 +1,11 @@
+ALTER TABLE `users` ADD `organization_id` INT NULL DEFAULT NULL;
+ALTER TABLE `organizations` ADD `title` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `uuid`;
+ALTER TABLE `organizations` ADD `branch_name` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `title`;
+ALTER TABLE `organizations` ADD `slogan` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `business_phone`;
+ALTER TABLE `organizations` ADD `po_box` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `street_address`;
+ALTER TABLE `organizations` ADD `annual_revenue` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `slogan`;
+ALTER TABLE `organizations` ADD `year_founded` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `annual_revenue`;
+ALTER TABLE `organizations` ADD `employees` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `year_founded`;
+ALTER TABLE `organizations` ADD `organization_type` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `employees`;
+ALTER TABLE `organizations` ADD `business_type` VARCHAR( 100 ) NULL DEFAULT NULL AFTER `organization_type`;
+ALTER TABLE `organizations` ADD `logo` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `business_type`;

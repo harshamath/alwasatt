@@ -31,6 +31,8 @@ $cakeDescription = __d('cake_dev', 'Alwasatt');
 
         echo $this->Html->css('bootstrap_v3');
         echo $this->Html->css('style');
+        echo $this->Html->css('theme');
+        echo $this->Html->css('custom');
         
         echo $this->Html->script('jquery');
         
