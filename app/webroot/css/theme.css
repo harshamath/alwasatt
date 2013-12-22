@@ -177,11 +177,12 @@ a.edit {background:url(../images/ico_edit.png) right no-repeat; padding-top:3px;
 span.tag {background:#eaeaea; text-align: right; display: inline-block; padding: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; min-width:30px;}
 span.tag a {background: url(../images/ico_x.png) right no-repeat; display:inline-block; width: 10px; height: 10px; margin-left: 25px;}
 
-.btn {min-width:90px; height: 30px; background:url(../images/btn_bg.jpg) bottom repeat-x; display:inline-block; border: 1px solid #ccc; line-height:17px; font-size:18px; color:#3b7cb4;}
+/*.btn {min-width:90px; height: 30px; background:url(../images/btn_bg.jpg) bottom repeat-x; display:inline-block; border: 1px solid #ccc; line-height:17px; font-size:18px; color:#3b7cb4;}
+.btn2 {min-width:90px; height: 30px; display:inline-block; border: 1px solid #ccc; line-height:25px; font-size:15px !IMPORTANT; color:#fff;}
 .btn:hover, .btn:focus, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
 color: #333;
 text-decoration: none;
-}
+}*/
 .btn_small {min-width:18px; height: 23px; background:url(../images/btn_bg.jpg) bottom repeat-x; display:inline-block; border: 1px solid #ccc; line-height: 23px; font-size:18px; color:#3b7cb4; margin-left:5px;}
 .btn .btn_add {background:url(../images/ico_btn_plus.png) left center no-repeat; display: inline-block; line-height:35px; padding-left: 25px;}
 .act_btn {min-width:100px; height: 40px; background: #13a732; text-align:center; display:inline-block; border: 1px solid #369c2c; line-height: 40px; font-size:18px; color:#fff;}
@@ -2033,7 +2034,7 @@ margin-top: 20px;
 .company_tabz ul li {float:left; margin-right:5px; position:relative; z-index:9999; margin-bottom:-1px; background-color:#ededec; border:#e5e4e4 1px solid; border-bottom:none; border-radius:5px 5px 0 0;}
 .company_tabz ul li:hover {background-color:#FFF;}
 .company_tabz ul li:hover a {color:#000;}
-.company_tabz ul li a {display:block; padding:10px 15px; color:#666666;}
+.company_tabz ul li a {display:block; padding:10px 15px; color:#666666; text-decoration:none;}
 .company_tabz ul li.active_tab {background-color:#FFF;}
 .company_tabz ul li.active_tab a {color:#000;}
 
@@ -2130,3 +2131,53 @@ input[type="submit"], .btn-01 {
 .right_pannel_02 {width:300px; float:left; min-height:200px; background:#eee;}
 .alert { float: left; width: 100%; }
 .alert-success { background: #ebf6ff; border-color: #d4eafb; }
+
+
+/*maroof*/
+.float-r {
+    float: right;
+}
+.pad-5 {
+    padding: 5px;
+}
+.btn-newxs { padding:7px; font-size: 12px; line-height: 1.5; border-radius: 3px; }
+.img-circle {
+    border-radius: 500px 500px 500px 500px;
+}
+
+.user_info img {
+    border: 5px solid #D6D6D6;
+    float: left;
+    height: 70px;
+    margin-right: 10px;
+    width: 70px;
+}
+
+.contractor {
+    border-right: 1px solid #CCCCCC;
+    display: inline;
+    float: left;
+    height: 135px;
+    margin-top: -15px;
+    padding: 25px 0 0 20px;
+    text-align: center;
+    width: 215px;
+}
+.contractor2{
+
+    display: inline;
+    float: left;
+    height: 135px;
+    margin-top: -15px;
+    padding: 25px 0 0 20px;
+    text-align: center;
+    width: 215px;
+}
+.top-box22 {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    margin-top: 10px !important;
+    min-height: 100px;
+
+}
+/*maroof*/

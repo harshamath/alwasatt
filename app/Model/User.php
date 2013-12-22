@@ -11,6 +11,7 @@ class User extends AppModel {
 			)*/
 		),
 		'Industry',
+                'Organization',
 		'Country' => array(
 			'fields' => array(
 				'country_code',

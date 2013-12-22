@@ -6,9 +6,8 @@ class Organization extends AppModel {
 	var $hasAndBelongsToMany = array(
 		'User' => array(
 			'className' => 'User',
-			'joinTable' => 'user_experience',
-			'foreignKey' => 'organization_id',
-			'associationForeignKey' => 'user_id',
+			'foreignKey' => 'organization_id'
+//			'associationForeignKey' => 'user_id',
 		//	'order' => array('EducationMajor.name')
 		)
 	);

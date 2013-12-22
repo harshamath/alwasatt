@@ -127,7 +127,7 @@ class UsersController extends AppController {
                 $this->set('FB_API_KEY', '429890107113580');
             }
         }
-        
+
         if ($this->request->is('post')) {
             $conditions = array(
                 'User.email' => $this->request->data['User']['username'],
@@ -147,9 +147,15 @@ class UsersController extends AppController {
                     $this->Cookie->write('rememberMe', $this->request->data['User'], true, $cookieTime);
                 }
 
-                $userDetail = $this->User->find('first', $conditions);
+                $userDetail = $this->User->find('first', array('conditions' => $conditions));
+
                 $this->Auth->login($userDetail['User']);
-                return $this->redirect(array('controller' => 'users', 'action' => 'profile'));
+                $this->Session->write('user', $userDetail);
+
+                if ($userDetail['User']['user_type_id'] == 4)
+                    return $this->redirect(array('controller' => 'users', 'action' => 'company_profile'));
+                else
+                    return $this->redirect(array('controller' => 'users', 'action' => 'profile'));
             } else {
                 $this->Session->setFlash(__('Invalid Username/Password'));
             }
@@ -159,6 +165,7 @@ class UsersController extends AppController {
     public function logout() {
         $this->Session->setFlash("You've been logged out");
         $this->Cookie->delete('rememberMe');
+        $this->Session->destroy();
         return $this->redirect($this->Auth->logout());
     }
 
@@ -193,7 +200,7 @@ class UsersController extends AppController {
                 $this->set('FB_API_KEY', '429890107113580');
             }
         }
-        
+
         if ($this->request->is('post')) {
             $conditions = array(
                 'User.email' => $this->request->data['email']
@@ -398,15 +405,15 @@ class UsersController extends AppController {
 
             $user = $this->User->findByResetPasswordToken($this->request->data['User']['reset_password_token']);
             $this->User->id = $user['User']['id'];
-            
+
             if ($this->request->data['User']['new_passwd'] != $this->request->data['User']['confirm_passwd']) {
                 $this->Session->setFlash(__('Password mismatched. Please, try again.'));
                 return $this->redirect(array('controller' => 'users', 'action' => 'login'));
-            } 
-            
+            }
+
             unset($this->request->data['User']['confirm_passwd']);
             $this->request->data['User']['password'] = $this->Auth->password($this->request->data['User']['new_passwd']);
-            
+
 
             if ($this->User->save($this->request->data)) {
                 $this->request->data['User']['reset_password_token'] = $this->request->data['User']['token_created_at'] = null;
@@ -432,20 +439,56 @@ class UsersController extends AppController {
         //$countries = $this->User->Country->find('list');
         $this->set(compact('user'));
     }
-    
-    public function company_wizard() {
-        if ($this->request->is('post')) {
-            if ($this->Company->save($this->request->data)) {
-                $this->Session->setFlash('Message successfully sent.');
-                $this->redirect(array('action' => 'compose'));
-            }
+
+    public function company_profile($id = null) {
+        $this->layout = 'company_profile';
+
+        $id = $this->Auth->user('id');
+        $this->User->id = $id;
+        if (!$this->User->exists($id)) {
+            throw new NotFoundException(__('Invalid user'));
         }
 
-        $this->set('industryList', ClassRegistry::init('Industry')->find('all'));
-        $this->set('countryList', ClassRegistry::init('Country')->find('all'));
-        $this->set('cityList', ClassRegistry::init('City')->find('all'));
+        $user = $this->User->read(null, $id);
+        $this->Session->write('user', $user);
+        $this->set(compact('user'));
     }
-    
+
+    public function company_wizard() {
+        $this->loadModel('Organization', 'Model');
+        $organizationObj = new Organization();
+        
+        $id = $this->Auth->user('id');
+        $this->User->id = $id;
+        if (!$this->User->exists($id)) {
+            throw new NotFoundException(__('Invalid user'));
+        }
+        
+        $user = $this->User->read(null, $id);
+        
+        if ($this->request->is('post')) {
+
+            $this->request->data['Organization']['street_address'] = $this->request->data['Organization']['address_1'] . ' ' . $this->request->data['Organization']['address_2'];
+            unset($this->request->data['Organization']['address_1']);
+            unset($this->request->data['Organization']['address_2']);
+            $this->request->data['Organization']['custom'] = 1;
+            $this->request->data['Organization']['created_by'] = $this->request->data['Organization']['user_id'];
+
+            if ($organizationObj->save($this->request->data['Organization'])) {
+                $user = $this->User->read(null, $id);
+                $this->Session->write('user', $user);
+
+                $this->Session->setFlash('Basic information saved!');
+                return $this->redirect(array('controller' => 'users', 'action' => 'company_profile'));
+            }
+        }
+        
+        $this->set(compact('user'));
+        $this->set('industryList', ClassRegistry::init('Industry')->find('all'));
+//        $this->set('countryList', ClassRegistry::init('Country')->find('all'));
+//        $this->set('cityList', ClassRegistry::init('City')->find('all'));
+    }
+
     public function company_signup() {
         if ($this->request->is('post')) {
             $conditions = array(
@@ -458,8 +501,21 @@ class UsersController extends AppController {
                 $this->Session->setFlash(__('Same email address already exist. Please, try again.'));
             } else {
                 unset($this->request->data['confirm_password']);
+                $uuid = String::uuid();
                 $this->request->data['password'] = $this->Auth->password($this->request->data['password']);
-                $this->request->data['uuid'] = String::uuid();
+                $this->request->data['uuid'] = $uuid;
+                $this->request->data['user_type_id'] = 4;
+
+                // insert organization record
+                $this->loadModel('Organization', 'Model');
+                $organizationObj = new Organization();
+                $organizationData = array();
+                $organizationData['Organization']['uuid'] = $uuid;
+                $organizationData['Organization']['name'] = $this->request->data['company_name'];
+                $organizationData['Organization']['custom'] = $this->request->data['company_name'];
+                if($organizationObj->save($organizationData['Organization']))
+                    $this->request->data['organization_id'] = $organizationObj->id;
+
                 $this->User->create();
                 if ($this->User->save($this->request->data)) {
                     $id = $this->User->id;

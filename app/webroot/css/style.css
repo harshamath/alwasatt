@@ -386,6 +386,10 @@ p.error em {
 }
 /* messages end */
 
-.col-sm-2 {
+#login_page .col-sm-2 {
     width: 26.667%;
+}
+
+#login_page .col-sm-8 {
+    width: 71.667%;
 }
