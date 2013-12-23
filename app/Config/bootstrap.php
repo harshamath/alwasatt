@@ -120,6 +120,8 @@ CakeLog::config('error', array(
 
 define('RESTRICT_ADMIN_ACCESS', false);
 
+Configure::write('ORGANIZATION_LOGO_PATH', '/files/resources/org_logos');
+
 function MDY2YMD( $date ,$join = '-') {
 	if( empty($date) ) {
 		return NULL;	

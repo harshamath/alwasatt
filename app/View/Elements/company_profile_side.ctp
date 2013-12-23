@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-md-3">
     <div class="bbox">
         <div class="user_info">
-            <div class="suserinfo"> <a href="#"><img class="img-circle" alt="Liena" src="<?= $this->base;?>/images/aple2.png"></a> <a href="#" class="susername"><?= $user['Organization']['name']?></a>
+            <div class="suserinfo"> <a href="#"><img class="img-circle" alt="Liena" src="<?= $this->webroot . Configure::read('ORGANIZATION_LOGO_PATH');?>/<?= $user['Organization']['logo']?>"></a> <a href="#" class="susername"><?= $user['Organization']['name']?></a>
             </div>
             <a href="<?= $this->base . '/users/company_wizard'?>" class="edit">Edit Profile</a> </div>
         <div class="suserhead">Our Sphere</div>

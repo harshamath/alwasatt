@@ -1,0 +1,65 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : localhost
+Source Server Version : 50527
+Source Host           : localhost:3306
+Source Database       : alwasatt
+
+Target Server Type    : MYSQL
+Target Server Version : 50527
+File Encoding         : 65001
+
+Date: 2013-12-24 04:50:35
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `business_types`
+-- ----------------------------
+DROP TABLE IF EXISTS `business_types`;
+CREATE TABLE `business_types` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(100) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `active` tinyint(2) DEFAULT '1',
+  `created_by` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of business_types
+-- ----------------------------
+INSERT INTO `business_types` VALUES ('2', null, 'IT', null, '1', null, '2013-12-23 21:09:28');
+INSERT INTO `business_types` VALUES ('3', null, 'Accounting', null, '1', null, '2013-12-23 21:09:39');
+INSERT INTO `business_types` VALUES ('4', null, 'User Interface', null, '1', null, '2013-12-23 21:09:50');
+
+-- ----------------------------
+-- Table structure for `organization_types`
+-- ----------------------------
+DROP TABLE IF EXISTS `organization_types`;
+CREATE TABLE `organization_types` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(100) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `active` tinyint(2) DEFAULT '1',
+  `created_by` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of organization_types
+-- ----------------------------
+INSERT INTO `organization_types` VALUES ('2', null, 'Accounting', null, '1', null, '2013-12-23 21:08:52');
+INSERT INTO `organization_types` VALUES ('3', null, 'IT', null, '1', null, '2013-12-23 21:09:03');
+INSERT INTO `organization_types` VALUES ('4', null, 'Web design', null, '1', null, '2013-12-23 21:09:14');
+
+ALTER TABLE `organizations` CHANGE `organization_type` `organization_type_id` INT( 11 ) NULL DEFAULT NULL;
+ALTER TABLE `organizations` CHANGE `business_type` `business_type_id` INT( 11 ) NULL DEFAULT NULL;
+ALTER TABLE `organizations` CHANGE `street_address` `address_1` VARCHAR( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+ALTER TABLE `organizations` ADD `address_2` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `address_1`;

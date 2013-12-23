@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application level Controller
  *
@@ -30,24 +31,29 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-//    public $components = array('Session', 'Auth', 'Cookie', 'DebugKit.Toolbar');
-    public $components = array('Session', 'Auth', 'Cookie');
-    
+
+    public $components = array('Session', 'Auth', 'Cookie', 'DebugKit.Toolbar');
+//    public $components = array('Session', 'Auth', 'Cookie');
+    var $annual_revenue_values = array('1000' => 'Less than 1000', '1001-5000' => '$1,001 - $5,000', '5001-1000' => '$5,001 - $10,000', '10001-20000' => '$10,001 - $20,000', '20000+' => 'more than $20,000');
+
     // Our code follows from here
     public function beforeFilter() {
+        
+        $this->set('annual_revenue_values', $this->annual_revenue_values);
+        
         // set cookie options
         $this->Cookie->httpOnly = true;
-		
-		if(!$this->Auth->loggedIn() && !empty($this->params['action']) && $this->params['action'] == 'admin_login') {
-			$this->redirect('/users/login');	
-		}
-		
+
+        if (!$this->Auth->loggedIn() && !empty($this->params['action']) && $this->params['action'] == 'admin_login') {
+            $this->redirect('/users/login');
+        }
+
         if (!$this->Auth->loggedIn() && $this->Cookie->read('rememberMe')) {
             $cookie = $this->Cookie->read('rememberMe');
 
             $this->loadModel('User'); // If the User model is not loaded already
             $user = $this->User->find('first', array(
-                    'conditions' => array(
+                'conditions' => array(
                     'User.username' => $cookie['username'],
                     'User.password' => $cookie['password']
                 )
@@ -56,21 +62,21 @@ class AppController extends Controller {
             if ($user && !$this->Auth->login($user['User'])) {
                 $this->redirect('/users/logout'); // destroy session & cookie
             }
-        } if( $this->Auth->loggedIn() ) {
-			
-			if(RESTRICT_ADMIN_ACCESS && $this->params['admin'] == true || $this->params['admin'] == 'true' ) {
-				$user_type = $this->Auth->user('user_type_id');
-				$adminTypes = ClassRegistry::init('UserType')->getMasterAdminTypeId();	
-				
-				if( !in_array($user_type, $adminTypes) ) {
-					$ref = $this->referer();
-					$ref = !empty($ref) ? $ref : '/users/login';
-					$ref .= '?error=UNAUTHORIZED_ACCESS';
-					
-					$this->redirect($ref);
-				}
-			}
-			
-		}
+        } if ($this->Auth->loggedIn()) {
+
+            if (RESTRICT_ADMIN_ACCESS && $this->params['admin'] == true || $this->params['admin'] == 'true') {
+                $user_type = $this->Auth->user('user_type_id');
+                $adminTypes = ClassRegistry::init('UserType')->getMasterAdminTypeId();
+
+                if (!in_array($user_type, $adminTypes)) {
+                    $ref = $this->referer();
+                    $ref = !empty($ref) ? $ref : '/users/login';
+                    $ref .= '?error=UNAUTHORIZED_ACCESS';
+
+                    $this->redirect($ref);
+                }
+            }
+        }
     }
+
 }

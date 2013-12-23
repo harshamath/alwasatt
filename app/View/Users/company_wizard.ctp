@@ -3,7 +3,7 @@
         <h1 class="greenhead to-left"><?= $user['Organization']['name']; ?> Basic information</h1>
         <div class="wizard-data">
             <p class="large">Please specify what commodities or services your provide along with your target market and materials and tools.</p>
-            <form class="form-horizontal" role="form" method="post" action="company_wizard">
+            <form class="form-horizontal" role="form" method="post" action="company_wizard" enctype="multipart/form-data">
                 <input type="hidden" name="data[Organization][user_id]" value="<?= $user['User']['id']; ?>">
                 <input type="hidden" name="data[Organization][id]" value="<?= $user['User']['organization_id']; ?>">
                 <section class="panal">
@@ -19,7 +19,7 @@
                         <label for="input2" class="col-sm-2 control-label">Industries<i class="red_dot">*</i></label>
                         <div class="col-sm-3">
                             <select multiple name="data[Organization][industry_id]" class="form-control m170">
-                                <option value="0" selected>All</option>
+                                <option value="0" selected>Select Industry</option>
                                 <?php foreach ($industryList as $industry) { ?>
                                     <option value="<?php echo $industry['Industry']['id']; ?>" <?php if ($industry['Industry']['id'] == $user['Organization']['industry_id']) { ?> selected="selected" <?php } ?>> <?php echo $industry['Industry']['name']; ?> </option>
                                 <?php } ?>
@@ -43,13 +43,13 @@
                     <div class="form-group">
                         <label for="input4" class="col-sm-2 control-label">Address (1)</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="data[Organization][address_1]">
+                            <input type="text" class="form-control" name="data[Organization][address_1]" value="<?= $user['Organization']['address_1']; ?>">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="input5" class="col-sm-2 control-label">Address (2)</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" name="data[Organization][address_2]">
+                            <input type="text" class="form-control" name="data[Organization][address_2]" value="<?= $user['Organization']['address_2']; ?>">
                         </div>
                     </div>
                     <!--                    <div class="form-group">
@@ -58,7 +58,7 @@
                                                 <select name="data[Organization][country_id]" class="form-control">
                                                     <option selected> --Select Country-- </option>
                     <?php foreach ($countryList as $country) { ?>
-                                                                    <option value="<?= $country['Country']['country_id'] ?>"> <?php echo $country['Country']['country_name']; ?> </option>
+                                                                            <option value="<?= $country['Country']['country_id'] ?>"> <?php echo $country['Country']['country_name']; ?> </option>
                     <?php } ?>
                                                 </select>
                                             </div>
@@ -69,7 +69,7 @@
                                                 <select name="data[Organization][city_id]" class="form-control">
                                                     <option selected> --Select City-- </option>
                     <?php foreach ($cityList as $city) { ?>
-                                                                    <option> <?php echo $city['City']['city_name']; ?> </option>
+                                                                            <option> <?php echo $city['City']['city_name']; ?> </option>
                     <?php } ?>
                                                 </select>
                                             </div>
@@ -112,9 +112,9 @@
 
                 <section class="panal">
                     <p class="large">Additional info (optional)
-                        <button type="button" class="btn btn-default gtxt" id="btn-show-optional-info"><span class="glyphicon glyphicon-plus"></span></button>
+                        <button type="button" class="btn btn-default gtxt" id="btn-show-optional-info"><span class="glyphicon glyphicon-minus"></span></button>
                     </p>
-                    <div id="div-optional-info" style="display: none;">
+                    <div id="div-optional-info">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Slogan</label>
                             <div class="col-sm-6">
@@ -124,25 +124,51 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Annual Revenue</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="data[Organization][annual_revenue]" <?= $user['Organization']['annual_revenue']; ?>>
+                                <select class="form-control" name="data[Organization][annual_revenue]">
+                                    <?php foreach ($annual_revenue_values as $key => $annual_revenue): ?>
+                                    <option value="<?= $key ?>" <?php if($key == $user['Organization']['annual_revenue']) { ?> selected="selected" <?php }?>><?= $annual_revenue ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Year Founded</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="data[Organization][year_founded]" <?= $user['Organization']['year_founded']; ?>>
+                                <input type="text" class="form-control" name="data[Organization][year_founded]" value="<?= $user['Organization']['year_founded']; ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Employees</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="data[Organization][employees]" <?= $user['Organization']['employees']; ?>>
+                                <input type="text" class="form-control" name="data[Organization][employees]" value="<?= $user['Organization']['employees']; ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">Type of Organization</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="data[Organization][organization_type]" <?= $user['Organization']['organization_type']; ?>>
+                                <select name="data[Organization][organization_type_id]" class="form-control">
+                                    <option value="0" selected>Select Type of Organization</option>
+                                    <?php foreach ($organizationType as $organization) { ?>
+                                        <option value="<?php echo $organization['OrganizationType']['id']; ?>" <?php if ($organization['OrganizationType']['id'] == $user['Organization']['organization_type_id']) { ?> selected="selected" <?php } ?>> <?php echo $organization['OrganizationType']['name']; ?> </option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Business Type</label>
+                            <div class="col-sm-6">
+                                <select name="data[Organization][business_type_id]" class="form-control">
+                                    <option value="0" selected>Select Business Type</option>
+                                    <?php foreach ($businessType as $business) { ?>
+                                        <option value="<?php echo $business['BusinessType']['id']; ?>" <?php if ($business['BusinessType']['id'] == $user['Organization']['business_type_id']) { ?> selected="selected" <?php } ?>> <?php echo $business['BusinessType']['name']; ?> </option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Logo</label>
+                            <div class="col-sm-6">
+                                <?php echo $this->Form->file('Organization.logo'); ?>
                             </div>
                         </div>
                     </div>
@@ -156,9 +182,16 @@
     </div>
 </div>
 <script>
-    $(document).ready(function(){
-       $('#btn-show-optional-info').click(function(){
-           $('#div-optional-info').toggle('slow');
-       }); 
+    $(document).ready(function() {
+        $('#btn-show-optional-info').click(function() {
+            $('#div-optional-info').toggle('slow');
+            $('#btn-show-optional-info span').toggle(function() {
+                $(this).show();
+                $(this).toggleClass("glyphicon-minus glyphicon-plus");
+            }, function() {
+                $(this).show();
+                $(this).toggleClass("glyphicon-plus glyphicon-minus");
+            });
+        });
     });
 </script>

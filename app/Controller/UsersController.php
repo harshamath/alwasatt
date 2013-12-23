@@ -9,7 +9,7 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
-    public $components = array('Session', 'Cookie', 'Email', 'Auth');
+    public $components = array('Session', 'Cookie', 'Email', 'Auth', 'Upload');
     var $helpers = array('Time');
     var $layout = 'alwasatt';
 
@@ -133,8 +133,9 @@ class UsersController extends AppController {
                 'User.email' => $this->request->data['User']['username'],
                 'User.password' => $this->Auth->password($this->request->data['User']['password'])
             );
-			
+
             if ($this->User->hasAny($conditions)) {
+
                 if (isset($this->request->data['User']['rememberMe']) && $this->request->data['User']['rememberMe'] == 1) {
                     // After what time frame should the cookie expire
                     $cookieTime = "12 months"; // You can do e.g: 1 week, 17 weeks, 14 days
@@ -150,10 +151,9 @@ class UsersController extends AppController {
 
 
                 $userDetail = $this->User->find('first', array(
-					'conditions' => $conditions
-				));
+                    'conditions' => $conditions
+                ));
 
-				
                 $this->Auth->login($userDetail['User']);
                 $this->Session->write('user', $userDetail);
 
@@ -462,24 +462,51 @@ class UsersController extends AppController {
     public function company_wizard() {
         $this->loadModel('Organization', 'Model');
         $organizationObj = new Organization();
-        
+
         $id = $this->Auth->user('id');
         $this->User->id = $id;
         if (!$this->User->exists($id)) {
             throw new NotFoundException(__('Invalid user'));
         }
-        
-        $user = $this->User->read(null, $id);
-        
-        if ($this->request->is('post')) {
 
-            $this->request->data['Organization']['street_address'] = $this->request->data['Organization']['address_1'] . ' ' . $this->request->data['Organization']['address_2'];
-            unset($this->request->data['Organization']['address_1']);
-            unset($this->request->data['Organization']['address_2']);
+        $user = $this->User->read(null, $id);
+
+        if ($this->request->is('post')) {
             $this->request->data['Organization']['custom'] = 1;
             $this->request->data['Organization']['created_by'] = $this->request->data['Organization']['user_id'];
 
+            if ($this->request->data['Organization']['logo']['name'] != '') {
+                // set the upload destination folder
+                $destination = realpath(WWW_ROOT . Configure::read('ORGANIZATION_LOGO_PATH')) . '/';
+
+                // grab the file
+                $file = $this->request->data['Organization']['logo'];
+                
+                if(file_exists($destination . $user['Organization']['logo']))
+                    unlink($destination . $user['Organization']['logo']);
+                
+                // upload the image using the upload component
+                $result = $this->Upload->upload($file, $destination, null, array('type' => 'resizecrop', 'size' => array('70', '70'), 'output' => 'jpg'));
+
+                if (!$result) {
+                    $this->request->data['Organization']['logo'] = $this->Upload->result;
+                } else {
+                    // display error
+                    $errors = $this->Upload->errors;
+
+                    // piece together errors
+                    if (is_array($errors)) {
+                        $errors = implode("<br />", $errors);
+                    }
+
+                    $this->Session->setFlash($errors);
+                }
+            } else {
+                unset($this->request->data['Organization']['logo']);
+            }
+
             if ($organizationObj->save($this->request->data['Organization'])) {
+
                 $user = $this->User->read(null, $id);
                 $this->Session->write('user', $user);
 
@@ -487,9 +514,11 @@ class UsersController extends AppController {
                 return $this->redirect(array('controller' => 'users', 'action' => 'company_profile'));
             }
         }
-        
+
         $this->set(compact('user'));
         $this->set('industryList', ClassRegistry::init('Industry')->find('all'));
+        $this->set('organizationType', ClassRegistry::init('OrganizationType')->find('all'));
+        $this->set('businessType', ClassRegistry::init('BusinessType')->find('all'));
 //        $this->set('countryList', ClassRegistry::init('Country')->find('all'));
 //        $this->set('cityList', ClassRegistry::init('City')->find('all'));
     }
@@ -518,7 +547,7 @@ class UsersController extends AppController {
                 $organizationData['Organization']['uuid'] = $uuid;
                 $organizationData['Organization']['name'] = $this->request->data['company_name'];
                 $organizationData['Organization']['custom'] = $this->request->data['company_name'];
-                if($organizationObj->save($organizationData['Organization']))
+                if ($organizationObj->save($organizationData['Organization']))
                     $this->request->data['organization_id'] = $organizationObj->id;
 
                 $this->User->create();
