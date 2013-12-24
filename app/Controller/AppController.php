@@ -32,8 +32,8 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-    public $components = array('Session', 'Auth', 'Cookie', 'DebugKit.Toolbar');
-//    public $components = array('Session', 'Auth', 'Cookie');
+//    public $components = array('Session', 'Auth', 'Cookie', 'DebugKit.Toolbar');
+    public $components = array('Session', 'Auth', 'Cookie');
     var $annual_revenue_values = array('1000' => 'Less than 1000', '1001-5000' => '$1,001 - $5,000', '5001-1000' => '$5,001 - $10,000', '10001-20000' => '$10,001 - $20,000', '20000+' => 'more than $20,000');
 
     // Our code follows from here
