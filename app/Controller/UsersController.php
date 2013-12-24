@@ -483,7 +483,7 @@ class UsersController extends AppController {
                 $file = $this->request->data['Organization']['logo'];
                 
                 if(file_exists($destination . $user['Organization']['logo']))
-                    unlink($destination . $user['Organization']['logo']);
+                    @unlink($destination . $user['Organization']['logo']);
                 
                 // upload the image using the upload component
                 $result = $this->Upload->upload($file, $destination, null, array('type' => 'resizecrop', 'size' => array('70', '70'), 'output' => 'jpg'));
