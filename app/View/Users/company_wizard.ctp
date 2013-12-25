@@ -17,8 +17,8 @@
                     </div>
                     <div class="form-group">
                         <label for="input2" class="col-sm-2 control-label">Industries<i class="red_dot">*</i></label>
-                        <div class="col-sm-3">
-                            <select multiple name="data[Organization][industry_id]" class="form-control m170">
+                        <div class="col-sm-6">
+                            <select name="data[Organization][industry_id]" class="form-control">
                                 <option value="0" selected>Select Industry</option>
                                 <?php foreach ($industryList as $industry) { ?>
                                     <option value="<?php echo $industry['Industry']['id']; ?>" <?php if ($industry['Industry']['id'] == $user['Organization']['industry_id']) { ?> selected="selected" <?php } ?>> <?php echo $industry['Industry']['name']; ?> </option>
@@ -104,7 +104,7 @@
                                     <input type="text" class="form-control col-sm-3" name="data[Organization][business_phone]" value="<?= $user['Organization']['business_phone']; ?>" placeholder="Enter Phone Number">
                                 </div>
                             </div>
-                            <button type="button" class="btn-success btnRSm">Add</button>
+<!--                            <button type="button" class="btn-success btnRSm">Add</button>-->
                         </div>
                     </div>
 

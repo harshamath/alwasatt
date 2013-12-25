@@ -1,0 +1,6 @@
+ALTER TABLE `organizations` ADD `service_category` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `logo`;
+ALTER TABLE `organizations` ADD `service_title` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `service_category`;
+ALTER TABLE `organizations` ADD `keywords` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `service_title`;
+ALTER TABLE `organizations` ADD `service_description` TEXT NULL DEFAULT NULL AFTER `keywords`;
+ALTER TABLE `organizations` ADD `target_range` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `service_description`;
+ALTER TABLE `organizations` ADD `target_range_2` VARCHAR( 255 ) NULL DEFAULT NULL AFTER `target_range`;

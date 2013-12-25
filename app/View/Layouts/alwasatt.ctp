@@ -43,7 +43,6 @@ $cakeDescription = __d('cake_dev', 'Alwasatt');
     </head>
     <body>
         <?php echo $this->element('top_header'); ?>
-        <div class="top_search"></div>
         <div class="container">
             <?php echo $this->fetch('content'); ?>            
             <?php echo $this->element('footer'); ?>

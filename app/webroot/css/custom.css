@@ -68,6 +68,13 @@ div#login_page .col-lg-12 .col-lg-6 .form-horizontal .form-group label , div#log
     font-weight:normal;
     vertical-align:middle;
 }
+div#login_page .col-lg-12 .col-lg-6 .form-horizontal .form-group label, div#login_page .col-lg-12 .col-lg-7 .form-horizontal .form-group label {
+    color: #333333;
+    font-size: 16px;
+    font-weight: normal;
+    margin-right: 5px;
+    vertical-align: middle;
+}
 div#login_page .col-lg-12 .col-lg-6 .form-horizontal .form-group label.remember {
     width:35%;
     font-size:15px;

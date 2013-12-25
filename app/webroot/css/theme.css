@@ -107,7 +107,7 @@ a.edit {background:url(../images/ico_edit.png) right no-repeat; padding-top:3px;
 .sidebar_left .companies ul li a.grn2nd {background-color:#59b813; font-size:30px;}
 
 .viewed {}
-.viewed h4 {background:url(../images/ico_eye.png) left no-repeat; padding-left:25px; margin:0 18px; color:#324356; font-size:16px;}
+.viewed h4 {background:url(../images/ico_eye.png) left no-repeat; padding-left:25px; margin:15px 18px; color:#324356; font-size:16px;}
 .viewed ul {padding:0 10px; margin:0; list-style:none;}
 .viewed ul li {padding:7px; *zoom:1;}
 .viewed ul li span {float:right; font-weight:bold;}
@@ -126,9 +126,12 @@ a.edit {background:url(../images/ico_edit.png) right no-repeat; padding-top:3px;
 
 .ProfileCompletness {padding-top:10px;}
 .ProfileCompletness h4 {color:#000;}
+/*maroof*/
+.ProfileCompletness ul{ margin:10px 0 0 -39px !important;}
+/*maroof*/
 .ProfileCompletness ul li {padding:5px 0; *zoom:1; clear:both; display:block;}
 .ProfileCompletness ul li a {font-weight:bold; background:url(../images/ico_plus.png) left top no-repeat; line-height:18px; padding-left:20px; float:left;}
-.ProfileCompletness ul li a.manage {font-weight:normal; background:url(../images/ico_pencil.png) right no-repeat; line-height:15px; padding-right:18px; padding-left:0;}
+.ProfileCompletness ul li a.manage {font-weight:normal; background:url(../images/ico_pencil.png) right no-repeat; line-height:30px; padding-right:18px; padding-left:0;}
 
 .mayknow {}
 .mayknow h4 {color:#000;}
@@ -451,7 +454,7 @@ width:113px;
 }
 .contact-area .contact{
  padding:0;
- margin:0;
+ margin:0 0 0 10px;
  list-style:none;
  overflow:hidden;
  float:left;
@@ -2180,4 +2183,55 @@ input[type="submit"], .btn-01 {
     min-height: 100px;
 
 }
+.pad-10 {
+    padding: 10px;
+}
+.new_bbox {
+	float: left;
+	width: 100%;
+
+	border: 1px solid #E1E0E0;
+	border-radius: 3px;
+}
+.gray_box{
+
+background:#f4f4f4;
+
+}
+.gray_box h3{
+   background: none repeat scroll 0 0 #3879B1;
+    color: #FFFFFF;
+    font-size: 16px;
+    margin-top: 0;
+    padding: 5px;
+}
+.presence h1 {
+    border-bottom: 1px solid #F0F0F0;
+    color: #339E03;
+    font-size: 23px;
+    padding-bottom: 15px;
+    padding-left: 45px;
+}
+.mb-20 {
+    margin-bottom: 20px;
+}
+.mar_b10{ margin-bottom:10px;}
+.bottom_text{ padding:10px; background:#fff;}
+.search[type="button"] {
+    background: url("../images/ico_search_1.png") no-repeat scroll center center transparent;
+    border: 1px solid #CCCCCC;
+    height: 34px;
+    line-height: 35px;
+    width: 40px;
+	border-radius:5px;
+}
+
+
+.cat_lvl  select {
+    background: none repeat scroll 0 0 #FFFFFF;
+    font-family: Arial,Helvetica,sans-serif;
+	height:189px;
+
+}
+.fltr{ float:right;}
 /*maroof*/

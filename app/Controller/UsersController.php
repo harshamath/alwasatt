@@ -481,10 +481,10 @@ class UsersController extends AppController {
 
                 // grab the file
                 $file = $this->request->data['Organization']['logo'];
-                
-                if(file_exists($destination . $user['Organization']['logo']))
+
+                if (file_exists($destination . $user['Organization']['logo']))
                     @unlink($destination . $user['Organization']['logo']);
-                
+
                 // upload the image using the upload component
                 $result = $this->Upload->upload($file, $destination, null, array('type' => 'resizecrop', 'size' => array('70', '70'), 'output' => 'jpg'));
 
@@ -511,7 +511,7 @@ class UsersController extends AppController {
                 $this->Session->write('user', $user);
 
                 $this->Session->setFlash('Basic information saved!');
-                return $this->redirect(array('controller' => 'users', 'action' => 'company_profile'));
+                return $this->redirect(array('controller' => 'users', 'action' => 'company_wizard_step_2'));
             }
         }
 
@@ -521,6 +521,53 @@ class UsersController extends AppController {
         $this->set('businessType', ClassRegistry::init('BusinessType')->find('all'));
 //        $this->set('countryList', ClassRegistry::init('Country')->find('all'));
 //        $this->set('cityList', ClassRegistry::init('City')->find('all'));
+    }
+
+    public function company_wizard_step_2() {
+        $this->loadModel('Organization', 'Model');
+        $organizationObj = new Organization();
+        
+        $id = $this->Auth->user('id');
+        $this->User->id = $id;
+        if (!$this->User->exists($id)) {
+            throw new NotFoundException(__('Invalid user'));
+        }
+
+        $user = $this->User->read(null, $id);
+
+        if ($this->request->is('post')) {
+            if ($organizationObj->save($this->request->data['Organization'])) {
+
+                $user = $this->User->read(null, $id);
+                $this->Session->write('user', $user);
+
+                $this->Session->setFlash('Commodities and Services information saved!');
+                return $this->redirect(array('controller' => 'users', 'action' => 'company_wizard_step_3'));
+            } else {
+                $this->Session->setFlash('Commodities and Services information couldn\'t be saved!');
+            }
+        }
+
+        $this->set(compact('user'));
+    }
+    
+    public function company_wizard_step_3() {
+        $this->loadModel('Organization', 'Model');
+        $organizationObj = new Organization();
+        
+        $id = $this->Auth->user('id');
+        $this->User->id = $id;
+        if (!$this->User->exists($id)) {
+            throw new NotFoundException(__('Invalid user'));
+        }
+
+        $user = $this->User->read(null, $id);
+
+        if ($this->request->is('post')) {
+            
+        }
+
+        $this->set(compact('user'));
     }
 
     public function company_signup() {
