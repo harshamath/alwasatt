@@ -4,7 +4,7 @@
             <h1>Create Your Presence/ Image/ Community on Alwasatt Today</h1>
         </div>
         <div class="col-xs-12 col-md-12">
-            <div class="success mb-20"><strong>CONGRATULATIONS</strong>&nbsp;<span style="font-size:13px;">Your company has been created! You can now start using Alwasatt and post your needs,or market your company in a better and let it more visible to other people by activating your company profile.</span></div>
+            <div class="success mb-20"><strong>CONGRATULATIONS</strong>&nbsp;<span style="font-size:13px;">Your company has been created! You can now start using Alwasatt and post your needs,or market your company in a better and let it more visible to other people by activating your <a href="<?=$this->base;?>/users/company_profile" style="text-decoration: underline;">company profile</a>.</span></div>
         </div>
         <div class="padd"></div>
         <div class="col-xs-12 col-md-12">
